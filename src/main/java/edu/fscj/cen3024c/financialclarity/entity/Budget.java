@@ -1,6 +1,7 @@
 package edu.fscj.cen3024c.financialclarity.entity;
 
 import jakarta.persistence.*;
+import edu.fscj.cen3024c.financialclarity.entity.Period;
 
 import java.util.Date;
 
@@ -14,13 +15,29 @@ public class Budget {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private Integer userid;
 
-    @Column(nullable = false, unique = true)
-    private String budgetName;
+    @Column(name = "category_id", nullable = true)
+    private Integer categoryid;
 
     @Column(nullable = false)
-    private Date timeCreated;
+    private Double amount;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name="period", nullable = false)
+    private Period period;
+
+    @Column(name = "start_date", nullable = false)
+    private Date startDate;
+
+    @Column(name = "end_date", nullable = false)
+    private Date endDate;
+
+    // @Column(nullable = false, unique = true)
+    // private String budgetName;
+
+    // @Column(nullable = false)
+    // private Date timeCreated;
 
 
     // Getters and Setters
@@ -34,29 +51,75 @@ public class Budget {
     }
 
     //UserID
-    public User getUser() {
-        return user;
+    public Integer getUserID() {
+        return userid;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserID(Integer userid) {
+        this.userid = userid;
+    }
+
+    //CategoryID
+    public Integer getCategoryID() {
+        return categoryid;
+    }
+
+    public void setCategoryID(Integer categoryid) {
+        this.categoryid = categoryid;
     }
 
     //Amount
-    public String getBudgetName() {
-        return budgetName;
+    public Double getAmount() {
+        return amount;
     }
 
-    public void setBudgetName(String budgetName) {
-        this.budgetName = budgetName;
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
+
+    //Period
+    public Period getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(Period period) {
+        this.period = period;
+    }
+
+    //StartDate
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    //EndDate
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+    
+
+    //Amount
+    // public String getBudgetName() {
+    //     return budgetName;
+    // }
+
+    // public void setBudgetName(String budgetName) {
+    //     this.budgetName = budgetName;
+    // }
 
     //Category
-    public Date getTimeCreate() {
-        return timeCreated;
-    }
+    // public Date getTimeCreate() {
+    //     return timeCreated;
+    // }
 
-    public void setTimeCreate(Date timeCreate) {
-        this.timeCreated = timeCreate;
-    }
+    // public void setTimeCreate(Date timeCreate) {
+    //     this.timeCreated = timeCreate;
+    // }
 }
