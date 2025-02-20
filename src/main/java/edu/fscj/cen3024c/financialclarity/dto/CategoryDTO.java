@@ -1,29 +1,22 @@
-package edu.fscj.cen3024c.financialclarity.entity;
+package edu.fscj.cen3024c.financialclarity.dto;
 
-import jakarta.persistence.*;
 import edu.fscj.cen3024c.financialclarity.entity.CategoryType;
 
-@Entity
-@Table(name = "category")
-public class Category {
-    //Defining the columns in the database
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class CategoryDTO {
     private Integer id;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private Integer userid;
-
-    @Column(nullable = false)
+    private Integer userId;
     private String name;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name="type", nullable = false)
     private CategoryType type;
 
-    // Getters and Setters
-    //ExpenseId
+    public CategoryDTO(Integer id, Integer userId, String name, CategoryType type) {
+        this.id = id;
+        this.userId = userId;
+        this.name = name;
+        this.type = type;
+    }
+    
+    // Getters and Setters  
+    //id
     public Integer getId() {
         return id;
     }
@@ -32,13 +25,13 @@ public class Category {
         this.id = id;
     }
 
-    //UserID
-    public Integer getUserID() {
-        return userid;
+    //userId
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUserID(Integer userid) {
-        this.userid = userid;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     //Name
@@ -54,18 +47,19 @@ public class Category {
     public CategoryType getType() {
         return type;
     }
-
+    
     public void setType(CategoryType type) {
         this.type = type;
     }
-    
+
     @Override
     public String toString() {
-        return "Category{" +
+        return "CategoryDTO{" +
                 "id=" + id +
-                ", userid=" + userid +
+                ", userId=" + userId +
                 ", name='" + name + '\'' +
                 ", type=" + type +
                 '}';
     }
+
 }

@@ -15,10 +15,10 @@ public class Budget {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private Integer userid;
+    private Integer userId;
 
     @Column(name = "category_id", nullable = true)
-    private Integer categoryid;
+    private Integer categoryId;
 
     @Column(nullable = false)
     private Double amount;
@@ -52,20 +52,20 @@ public class Budget {
 
     //UserID
     public Integer getUserID() {
-        return userid;
+        return userId;
     }
 
-    public void setUserID(Integer userid) {
-        this.userid = userid;
+    public void setUserID(Integer userId) {
+        this.userId = userId;
     }
 
     //CategoryID
-    public Integer getCategoryID() {
-        return categoryid;
+    public Integer getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategoryID(Integer categoryid) {
-        this.categoryid = categoryid;
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
     //Amount
@@ -103,7 +103,7 @@ public class Budget {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
-    
+
 
     //Amount
     // public String getBudgetName() {
@@ -122,4 +122,17 @@ public class Budget {
     // public void setTimeCreate(Date timeCreate) {
     //     this.timeCreated = timeCreate;
     // }
+
+    @Override
+    public String toString() {
+        return "Budget{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", categoryId=" + categoryId +
+                ", amount=" + amount +
+                ", period=" + period +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                '}';
+    }
 }
