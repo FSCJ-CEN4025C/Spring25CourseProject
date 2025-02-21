@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -35,7 +36,7 @@ public class BudgetController {
 
     private BudgetDTO convertToDTO(Budget budget) {
         return new BudgetDTO(budget.getId(),
-                             budget.getUserId(), 
+                             budget.getUser(), 
                              budget.getCategoryId(), 
                              budget.getAmount(), 
                              budget.getPeriod(), 
@@ -54,7 +55,8 @@ public class BudgetController {
 
     @GetMapping("/{budgetId}")
     public ResponseEntity<BudgetDTO> getBudgetById(@PathVariable Integer budgetId) {
-        Budget budget = budgetService.findById(budgetId);
+        Optional<Budget> optionalBudget = budgetService.findById(budgetId);
+        Budget budget = optionalBudget.get();
         BudgetDTO budgetDTO = convertToDTO(budget);
         logger.error("Found budget {}", budgetId);
         return ResponseEntity.ok(budgetDTO);
@@ -78,11 +80,12 @@ public class BudgetController {
 
     @PutMapping("/updateBudget/{budgetId}")
     public ResponseEntity<BudgetDTO> updateBudget(@PathVariable Integer budgetId, @RequestBody String username, @RequestBody BudgetDTO budgetDTO) {
-        Budget budget = budgetService.findById(budgetId);
+        Optional<Budget> optionalBudget = budgetService.findById(budgetId);
+        Budget budget = optionalBudget.get();
         if (budget != null) {
             User user = userRepository.findByUsername(username);
             if (user != null) {
-                budget.setUserId(user.getId());
+                budget.setUser(budgetDTO.getUser());
                 budget.setCategoryId(budgetDTO.getCategoryId());
                 budget.setAmount(budgetDTO.getAmount());
                 budget.setPeriod(budgetDTO.getPeriod());

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BudgetService {
@@ -21,22 +22,23 @@ public class BudgetService {
     private UserRepository userRepository;
 
     public List<Budget> findAll() { return budgetRepository.findAll();}
-    public Budget findById(Integer budgetId) { 
-        return budgetRepository.findByBudgetId(budgetId);
+    public Optional<Budget> findById(Integer budgetId) {
+        return budgetRepository.findById(budgetId);
     }
 
     @Transactional
     public void deleteByBudgetId(Integer budgetId) { 
-        budgetRepository.deleteByBudgetId(budgetId);
+        budgetRepository.deleteById(budgetId);
     }
 
     public Budget save(Budget budget) { return budgetRepository.save(budget); }
     public BudgetDTO save(BudgetDTO budgetDTO) {
-        User user = userRepository.findById(budgetDTO.getUserId())
+        
+        User user = userRepository.findById(budgetDTO.getUser().getId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
         Budget budget = new Budget();
         
-        budget.setUserId(user.getId());
+        budget.setUser(user);
         budget.setCategoryId(budgetDTO.getCategoryId());
         budget.setAmount(budgetDTO.getAmount());
         budget.setPeriod(budgetDTO.getPeriod());
@@ -49,7 +51,7 @@ public class BudgetService {
 
     private BudgetDTO convertToDTO(Budget budget) {
         return new BudgetDTO(budget.getId(),
-                             budget.getUserId(), 
+                             budget.getUser(), 
                              budget.getCategoryId(), 
                              budget.getAmount(), 
                              budget.getPeriod(), 

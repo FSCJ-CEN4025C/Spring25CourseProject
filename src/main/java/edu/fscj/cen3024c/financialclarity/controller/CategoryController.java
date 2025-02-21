@@ -3,7 +3,6 @@ package edu.fscj.cen3024c.financialclarity.controller;
 import edu.fscj.cen3024c.financialclarity.dto.CategoryDTO;
 import edu.fscj.cen3024c.financialclarity.entity.Category;
 import edu.fscj.cen3024c.financialclarity.entity.User;
-import edu.fscj.cen3024c.financialclarity.repository.UserRepository;
 import edu.fscj.cen3024c.financialclarity.service.CategoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -24,14 +24,11 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @Autowired
-    private UserRepository userRepository;
-
     private static final Logger logger = LoggerFactory.getLogger(CategoryController.class);
 
     private CategoryDTO convertToDTO(Category category) {
         return new CategoryDTO(category.getId(),
-                             category.getUserId(), 
+                             category.getUser(), 
                              category.getName(), 
                              category.getType());
     }
@@ -47,7 +44,8 @@ public class CategoryController {
 
     @GetMapping("/{categoryId}")
     public ResponseEntity<CategoryDTO> getCategoryById(@PathVariable Integer categoryId) {
-        Category category = categoryService.findById(categoryId);
+        Optional<Category> optionalCategory = categoryService.findById(categoryId);
+        Category category = optionalCategory.get();
         CategoryDTO categoryDTO = convertToDTO(category);
         logger.error("Found category {}", categoryId);
         return ResponseEntity.ok(categoryDTO);
@@ -56,7 +54,7 @@ public class CategoryController {
     @PostMapping("/createCategory")
     public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO categoryDTO) {
         Category category = new Category();
-        category.setUserId(categoryDTO.getUserId());
+        category.setUser(categoryDTO.getUser());
         category.setName(categoryDTO.getName());
         category.setType(categoryDTO.getType());
         categoryService.save(category);
@@ -66,8 +64,9 @@ public class CategoryController {
 
     @PutMapping("/updateCategory/{categoryName}")
     public ResponseEntity<CategoryDTO> updateCategory(@PathVariable Integer categoryId, @RequestBody CategoryDTO categoryDTO) {
-        Category category = categoryService.findById(categoryId);
-        category.setUserId(categoryDTO.getUserId());
+        Optional<Category> optionalCategory = categoryService.findById(categoryId);
+        Category category = optionalCategory.get();
+        category.setUser(categoryDTO.getUser());
         category.setName(categoryDTO.getName());
         category.setType(categoryDTO.getType());
         categoryService.save(category);

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryService {
@@ -22,13 +23,13 @@ public class CategoryService {
 
     public List<Category> findAll() { return categoryRepository.findAll();}
 
-    public Category findById(Integer categoryId) { 
-        return categoryRepository.findByCategoryId(categoryId);
+    public Optional<Category> findById(Integer categoryId) {
+        return categoryRepository.findById(categoryId);
     }
 
     @Transactional
     public void deleteById(Integer categoryId) { 
-        categoryRepository.deleteByCategoryId(categoryId);
+        categoryRepository.deleteById(categoryId);
     }   
 
     public Category save(Category category) { 
@@ -36,11 +37,11 @@ public class CategoryService {
     }
 
     public CategoryDTO save(CategoryDTO categoryDTO) {
-        User user = userRepository.findById(categoryDTO.getUserId())
+        User user = userRepository.findById(categoryDTO.getUser().getId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
         Category category = new Category();
         
-        category.setUserId(user.getId());
+        category.setUser(user);
         category.setName(categoryDTO.getName());
         category.setType(categoryDTO.getType());
 
@@ -50,7 +51,7 @@ public class CategoryService {
 
     private CategoryDTO convertToDTO(Category category) {
         return new CategoryDTO(category.getId(),
-                               category.getUserId(), 
+                               category.getUser(), 
                                category.getName(), 
                                category.getType());
     }

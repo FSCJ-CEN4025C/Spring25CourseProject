@@ -10,7 +10,7 @@ import java.util.List;
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
     // Find all Users
     List<Category> findAll();
-    Category findByCategoryId(Integer categoryId);
-    void deleteByCategoryId(Integer categoryId);
+//    Category findByCategoryId(Integer categoryId);
+    void deleteById(Integer Id);
     
 }

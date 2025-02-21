@@ -15,7 +15,7 @@ public class Budget {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private Integer userId;
+    private User user;
 
     @Column(name = "category_id", nullable = true)
     private Integer categoryId;
@@ -33,13 +33,6 @@ public class Budget {
     @Column(name = "end_date", nullable = false)
     private Date endDate;
 
-    // @Column(nullable = false, unique = true)
-    // private String budgetName;
-
-    // @Column(nullable = false)
-    // private Date timeCreated;
-
-
     // Getters and Setters
     //ExpenseId
     public Integer getId() {
@@ -51,12 +44,12 @@ public class Budget {
     }
 
     //UserID
-    public Integer getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     //CategoryID
@@ -127,7 +120,7 @@ public class Budget {
     public String toString() {
         return "Budget{" +
                 "id=" + id +
-                ", userId=" + userId +
+                ", userId=" + user.getId() +
                 ", categoryId=" + categoryId +
                 ", amount=" + amount +
                 ", period=" + period +

@@ -1,16 +1,17 @@
 package edu.fscj.cen3024c.financialclarity.dto;
 
 import edu.fscj.cen3024c.financialclarity.entity.CategoryType;
+import edu.fscj.cen3024c.financialclarity.entity.User;
 
 public class CategoryDTO {
     private Integer id;
-    private Integer userId;
+    private User user;
     private String name;
     private CategoryType type;
 
-    public CategoryDTO(Integer id, Integer userId, String name, CategoryType type) {
+    public CategoryDTO(Integer id, User user, String name, CategoryType type) {
         this.id = id;
-        this.userId = userId;
+        this.user = user;
         this.name = name;
         this.type = type;
     }
@@ -26,12 +27,12 @@ public class CategoryDTO {
     }
 
     //userId
-    public Integer getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     //Name
@@ -56,7 +57,7 @@ public class CategoryDTO {
     public String toString() {
         return "CategoryDTO{" +
                 "id=" + id +
-                ", userId=" + userId +
+                ", userId=" + user.getId() +
                 ", name='" + name + '\'' +
                 ", type=" + type +
                 '}';

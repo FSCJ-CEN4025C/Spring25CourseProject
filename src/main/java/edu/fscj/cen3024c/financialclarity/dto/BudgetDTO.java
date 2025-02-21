@@ -1,11 +1,12 @@
 package edu.fscj.cen3024c.financialclarity.dto;
 
 import edu.fscj.cen3024c.financialclarity.entity.Period;
+import edu.fscj.cen3024c.financialclarity.entity.User;
 import java.util.Date;
 
 public class BudgetDTO {
     private Integer id;
-    private Integer userId;
+    private User user;
     private Integer categoryId;
     private Double amount;
     private Period period;
@@ -13,14 +14,14 @@ public class BudgetDTO {
     private Date endDate;
 
     public BudgetDTO(Integer id, 
-                     Integer userId, 
+                     User user, 
                      Integer categoryId, 
                      Double amount, 
                      Period period, 
                      Date startDate, 
                      Date endDate) {
         this.id = id;
-        this.userId = userId;
+        this.user = user;
         this.categoryId = categoryId;
         this.amount = amount;
         this.period = period;
@@ -39,12 +40,12 @@ public class BudgetDTO {
     }
 
     //UserID
-    public Integer getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUserId(User user) {
+        this.user = user;
     }
 
     //CategoryID
@@ -96,7 +97,7 @@ public class BudgetDTO {
     public String toString() {
         return "BudgetDTO{" +
                 "id=" + id +
-                ", userId=" + userId +
+                ", userId=" + user.getId() +
                 ", categoryId=" + categoryId +
                 ", amount=" + amount +
                 ", period=" + period +
