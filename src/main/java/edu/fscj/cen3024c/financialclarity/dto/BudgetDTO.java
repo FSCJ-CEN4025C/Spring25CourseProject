@@ -1,6 +1,6 @@
 package edu.fscj.cen3024c.financialclarity.dto;
 
-import java.time.Period;
+import edu.fscj.cen3024c.financialclarity.entity.Period;
 import java.util.Date;
 
 public class BudgetDTO {
