@@ -51,11 +51,11 @@ public class Budget {
     }
 
     //UserID
-    public Integer getUserID() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserID(Integer userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

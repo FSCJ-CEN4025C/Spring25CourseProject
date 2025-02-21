@@ -13,7 +13,7 @@ public class Category {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private Integer userid;
+    private Integer userId;
 
     @Column(nullable = false)
     private String name;
@@ -33,12 +33,12 @@ public class Category {
     }
 
     //UserID
-    public Integer getUserID() {
-        return userid;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUserID(Integer userid) {
-        this.userid = userid;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     //Name
@@ -63,7 +63,7 @@ public class Category {
     public String toString() {
         return "Category{" +
                 "id=" + id +
-                ", userid=" + userid +
+                ", userId=" + userId +
                 ", name='" + name + '\'' +
                 ", type=" + type +
                 '}';
