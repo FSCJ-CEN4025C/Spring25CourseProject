@@ -29,7 +29,7 @@ public class ExpensesController {
     private UserRepository userRepository;
 
     private ExpensesDTO convertToDTO(Expenses expenses) {
-        return new ExpensesDTO(expenses.getExpenseId(), expenses.getUser().getId(), expenses.getAmount(), expenses.getName());
+        return new ExpensesDTO(expenses.getExpenseId(), expenses.getUser().getId(), expenses.getCategory().getId(), expenses.getAmount(), expenses.getName(), expenses.getCreatedAt(), expenses.getUpdatedAt());
     }
     @GetMapping
     public List<ExpensesDTO> getAllUsers() {

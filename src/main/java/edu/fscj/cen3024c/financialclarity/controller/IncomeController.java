@@ -25,7 +25,7 @@ public class IncomeController {
     private UserRepository userRepository;
 
     private IncomeDTO convertToDTO(Income income) {
-        return new IncomeDTO(income.getIncomeId(), income.getUser().getId(), income.getAmount(), income.getName());
+        return new IncomeDTO(income.getIncomeId(), income.getUser().getId(), income.getUser().getId(), income.getAmount(), income.getName(), income.getCreatedAt(), income.getUpdatedAt());
     }
 
     @GetMapping()
