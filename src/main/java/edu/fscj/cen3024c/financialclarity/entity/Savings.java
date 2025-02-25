@@ -2,6 +2,8 @@ package edu.fscj.cen3024c.financialclarity.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "savings")
 public class Savings {
@@ -17,8 +19,18 @@ public class Savings {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+
     @Column(name = "description", length = Integer.MAX_VALUE)
     private String description;
+
+    @Column()
+    private LocalDateTime createdAt;
+
+    @Column()
+    private LocalDateTime updatedAt;
 
     public Savings() {
         // This is the default constructor
@@ -52,11 +64,18 @@ public class Savings {
         this.user = user;
     }
 
+    public Category getCategory() {return category;}
+    public void setCategory(Category category) {this.category = category;}
+
     public String getDescription() {
         return description;
     }
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public LocalDateTime getCreatedAt() {return createdAt;}
+    public LocalDateTime getUpdatedAt() {return updatedAt;}
+
 
 }
