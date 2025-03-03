@@ -1,10 +1,14 @@
 package edu.fscj.cen3024c.financialclarity.service;
 
 import edu.fscj.cen3024c.financialclarity.dto.ExpensesDTO;
+import edu.fscj.cen3024c.financialclarity.entity.Category;
 import edu.fscj.cen3024c.financialclarity.entity.Expenses;
 import edu.fscj.cen3024c.financialclarity.entity.User;
+
 import edu.fscj.cen3024c.financialclarity.repository.UserRepository;
 import org.springframework.transaction.annotation.Transactional;
+
+import edu.fscj.cen3024c.financialclarity.repository.CategoryRepository;
 import edu.fscj.cen3024c.financialclarity.repository.ExpensesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +25,9 @@ public class ExpenseService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     public Expenses findByExpencesId(Integer expensesId) {return expensesRepository.findByExpenseId(expensesId);}
     public List<Expenses> findAll() {return expensesRepository.findAll();}
     @Transactional
@@ -30,10 +37,14 @@ public class ExpenseService {
         User user = userRepository.findById(expensesDTO.getUserId())
                         .orElseThrow(() -> new RuntimeException("User not found"));
 
+        Category category = categoryRepository.findById(expensesDTO.getCategoryId()).orElseThrow(() -> new RuntimeException("Category not found"));
+
+
         // Convert ExpenseDTO to Expense entity
         Expenses expenses = new Expenses();
         expenses.setExpenseId(expensesDTO.getExpenseId());
         expenses.setUser(user);
+        expenses.setCategory(category);
         expenses.setAmount(expensesDTO.getAmount());
         expenses.setName(expensesDTO.getName());
 
@@ -45,7 +56,7 @@ public class ExpenseService {
     }
 
     private ExpensesDTO convertToDTO(Expenses expenses) {
-        return new ExpensesDTO(expenses.getExpenseId(), expenses.getUser().getId(), expenses.getAmount(), expenses.getName());
+        return new ExpensesDTO(expenses.getExpenseId(), expenses.getUser().getId(), expenses.getCategory().getId(), expenses.getAmount(), expenses.getName(), expenses.getCreatedAt(), expenses.getUpdatedAt());
     }
 }
 

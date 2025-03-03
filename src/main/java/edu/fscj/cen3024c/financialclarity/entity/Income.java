@@ -1,5 +1,7 @@
 package edu.fscj.cen3024c.financialclarity.entity;
 
+import java.time.LocalDateTime; 
+
 import jakarta.persistence.*;
 
 @Entity
@@ -14,27 +16,55 @@ public class Income {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(nullable = false, unique = true)
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+
+    @Column(nullable = false)
     private Float amount;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String name;
 
+    @Column()
+    private LocalDateTime createdAt;
+    
+    @Column()
+    private LocalDateTime updatedAt;
 
 
-    // Getters and Setters
-    //IncomeId
     public Integer getIncomeId() {return incomeId;}
     public void setIncomeId(Integer incomeId) {this.incomeId = incomeId;}
-    //UserID
+
     public User getUser() {return user;}
     public void setUser(User user) {this.user = user;}
-    //Amount
+
+    public Category getCategory() {return category;}
+    public void setCategory(Category category) {this.category = category;} 
+
     public Float getAmount() {return amount;}
     public void setAmount(Float amount) {this.amount = amount;}
-    //Name
+  
     public String getName() {return name;}
     public void setName(String name) {this.name = name;}
+
+
+    public LocalDateTime getCreatedAt() {return createdAt;}
+
+    public LocalDateTime getUpdatedAt() {return updatedAt;}
+
+
+    // This annotation runs the function right before an new item is inserted into the database
+    @PrePersist
+    void prePersist() {
+      this.createdAt = this.updatedAt = LocalDateTime.now();
+    }
+  
+    // This annotation runs the funciton right before an item is updated in the datebase
+    @PreUpdate
+    void preUpdate() {
+      this.updatedAt = LocalDateTime.now();
+    }
 
 
 }
