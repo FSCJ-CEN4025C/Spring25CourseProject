@@ -29,7 +29,7 @@ public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     private UserDTO convertToDTO(User user) {
-        return new UserDTO(user.getId(), user.getUsername(), user.getEmail(), user.getAge(), user.getTotalIncome(), user.getTotalExpenses() );
+        return new UserDTO(user.getId(), user.getUsername(), user.getEmail(), user.getAge());
     }
 
     @CrossOrigin(origins = {"http://example.com", "http://localhost"})
@@ -70,8 +70,6 @@ public class UserController {
             user.setUsername(userDTO.getUsername());
             user.setEmail(userDTO.getEmail());
             user.setAge(userDTO.getAge());
-            user.setTotalIncome(userDTO.getTotalIncome());
-            user.setTotalExpenses(userDTO.getTotalExpense());
             User updatedUser = userService.save(user);
             logger.info("A user has been updated: {}", username);
             return new ResponseEntity<>(convertToDTO(updatedUser), HttpStatus.OK);

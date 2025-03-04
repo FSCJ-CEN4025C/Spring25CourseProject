@@ -85,8 +85,6 @@ public class BudgetRepositoryInMemoryTest {
         user.setUsername(username);
         user.setEmail(email);
         user.setAge(21);
-        user.setTotalExpenses("5000");
-        user.setTotalIncome("10000");
         user.setSalt("salt");
         user.setHash("hash");
         return userRepository.save(user);
