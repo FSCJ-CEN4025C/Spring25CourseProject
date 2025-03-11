@@ -6,19 +6,15 @@ public class UserDTO {
     private String password;
     private String email;
     private Integer age;
-    private String totalIncome;
-    private String totalExpense;
 
 
     public UserDTO(){}
 
-    public UserDTO(Integer id, String username, String email, Integer age, String totalIncome, String totalExpense) {
+    public UserDTO(Integer id, String username, String email, Integer age) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.age = age;
-        this.totalIncome = totalIncome;
-        this.totalExpense = totalExpense;
     }
 
     public Integer getId() {
@@ -52,18 +48,6 @@ public class UserDTO {
     }
     public void setAge(Integer age) {
         this.age = age;
-    }
-    public String getTotalIncome() {
-        return totalIncome;
-    }
-    public void setTotalIncome(String totalIncome) {
-        this.totalIncome = totalIncome;
-    }
-    public String getTotalExpense() {
-        return totalExpense;
-    }
-    public void setTotalExpense(String totalExpense) {
-        this.totalExpense = totalExpense;
     }
 
 

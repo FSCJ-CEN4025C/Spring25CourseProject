@@ -27,8 +27,7 @@ public class UserRepositoryInMemoryTest {
         user.setUsername("Tom1");
         user.setEmail("tom1gmail.com");
         user.setAge(21);
-        user.setTotalExpenses("5000");
-        user.setTotalIncome("10000");
+      
         user.setSalt("salt".getBytes());
         user.setHash("hash".getBytes());
 
@@ -46,8 +45,7 @@ public class UserRepositoryInMemoryTest {
         user.setUsername("Tom2");
         user.setEmail("tom2@gmail.com");
         user.setAge(21);
-        user.setTotalExpenses("5000");
-        user.setTotalIncome("10000");
+     
         user.setSalt("salt".getBytes());
         user.setHash("hash".getBytes());
 

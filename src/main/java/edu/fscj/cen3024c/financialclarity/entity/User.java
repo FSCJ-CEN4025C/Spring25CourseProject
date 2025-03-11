@@ -19,11 +19,7 @@ public class User {
     @Column()
     private Integer age;
 
-    @Column()
-    private String totalIncome;
 
-    @Column()
-    private String totalExpenses;
 
     @Column(nullable = true)
     private byte[] salt;
@@ -35,12 +31,10 @@ public class User {
         // Default constructor
     }
 
-    public User(String username, Integer age, String email, String password, String totalIncome, String totalExpenses) {
+    public User(String username, Integer age, String email, String password) {
         this.username = username;
         this.age = age;
         this.email = email;
-        this.totalIncome = totalIncome;
-        this.totalExpenses = totalExpenses;
 
     }
 
@@ -56,12 +50,7 @@ public class User {
     public String getEmail() {return email;}
     public void setEmail(String email) {this.email = email;}
 
-    public String getTotalIncome() {return totalIncome;}
-    public void setTotalIncome(String totalIncome) {this.totalIncome = totalIncome;}
-
-    public String getTotalExpenses() {return totalExpenses;}
-    public void setTotalExpenses(String totalExpenses) {this.totalExpenses = totalExpenses;}
-
+  
     public byte[] getSalt() {return salt;}
     public void setSalt(byte[] salt) {this.salt = salt;}
 

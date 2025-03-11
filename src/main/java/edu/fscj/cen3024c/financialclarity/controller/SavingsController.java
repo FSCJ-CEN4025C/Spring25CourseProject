@@ -28,7 +28,7 @@ public class SavingsController {
     private static final Logger logger = LoggerFactory.getLogger(SavingsController.class);
 
     private SavingsDTO convertToDTO(Savings savings) {
-        return new SavingsDTO(savings.getSavingsId(), savings.getSavingsamount(), savings.getUser().getId(), savings.getDescription());
+        return new SavingsDTO(savings.getSavingsId(), savings.getSavingsamount(), savings.getUser().getId(), savings.getCategory().getId(), savings.getDescription(), savings.getCreatedAt(), savings.getUpdatedAt());
     }
 
     @CrossOrigin(origins = {"http://example.com", "http://localhost"})
