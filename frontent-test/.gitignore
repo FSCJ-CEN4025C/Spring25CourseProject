@@ -1,0 +1,30 @@
+# Node dependencies
+node_modules/
+dist/
+.angular/
+.cache/
+.tmp/
+.idea/
+.vscode/
+
+# Environment files (uncomment if needed)
+# src/environments/environment.prod.ts
+# src/environments/environment.ts
+
+# Logs
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build artifacts
+build/
+coverage/
+
+# Optional npm cache directory
+.npm/
+
+# IDE files
+.project
+.classpath
+.settings/

@@ -59,8 +59,8 @@ public class UserServiceTest {
         savedUser.setId(1);
         savedUser.setUsername(userDTO.getUsername());
         savedUser.setEmail(userDTO.getEmail());
-        savedUser.setSalt("generatedSalt");
-        savedUser.setHash("hashedPassword");
+        savedUser.setSalt("generatedSalt".getBytes());
+        savedUser.setHash("hashedPassword".getBytes());
 
         when(userRepository.save(any(User.class))).thenReturn(savedUser);
 

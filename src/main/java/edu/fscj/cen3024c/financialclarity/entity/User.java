@@ -10,26 +10,26 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(nullable = false, unique = true, length = 255)
+    @Column(nullable = true, unique = true, length = 255)
     private String username;
 
     @Column(nullable = false, length = 255, unique = true)
     private String email;
 
-    @Column(nullable = false)
+    @Column()
     private Integer age;
 
-    @Column(nullable = false)
+    @Column()
     private String totalIncome;
 
-    @Column(nullable = false)
+    @Column()
     private String totalExpenses;
 
-    @Column(nullable = false)
-    private String salt;
+    @Column(nullable = true)
+    private byte[] salt;
 
-    @Column(nullable = false)
-    private String hash;
+    @Column(nullable = true)
+    private byte[] hash;
 
     public User() {
         // Default constructor
@@ -62,11 +62,11 @@ public class User {
     public String getTotalExpenses() {return totalExpenses;}
     public void setTotalExpenses(String totalExpenses) {this.totalExpenses = totalExpenses;}
 
-    public String getSalt() {return salt;}
-    public void setSalt(String salt) {this.salt = salt;}
+    public byte[] getSalt() {return salt;}
+    public void setSalt(byte[] salt) {this.salt = salt;}
 
-    public String getHash() {return hash;}
-    public void setHash(String hash) {this.hash = hash;}
+    public byte[] getHash() {return hash;}
+    public void setHash(byte[] hash) {this.hash = hash;}
 
 
 }

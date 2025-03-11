@@ -53,8 +53,8 @@ public class UserService {
         user.setTotalExpenses(userDTO.getTotalExpense());
 
         // Generate salt and hash the password
-        String salt = generateSalt();
-        String hashedPassword = hashPassword(userDTO.getPassword(), salt);
+        byte[] salt = generateSalt();
+        byte[] hashedPassword = hashPassword(userDTO.getPassword(), salt);
 
         // Set salt and hashed password in User entity
         user.setSalt(salt);
@@ -72,22 +72,27 @@ public class UserService {
     }
 
     // Password hashing logic
-    private String hashPassword(String password, String salt) {
+    private byte[] hashPassword(String password, byte[] salt) {
         try {
-            PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), salt.getBytes(), HASH_ITERATIONS, HASH_KEY_LENGTH);
+            PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), salt, HASH_ITERATIONS, HASH_KEY_LENGTH);
             SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
             byte[] hash = factory.generateSecret(spec).getEncoded();
-            return Base64.getEncoder().encodeToString(hash); // Store hash as Base64 encoded string
+            return hash; // Store hash as Base64 encoded string
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             throw new RuntimeException("Error during password hashing", e);
         }
     }
 
     // Generate salt
-    private String generateSalt() {
+    private byte[] generateSalt() {
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[SALT_LENGTH];
         random.nextBytes(salt);
-        return Base64.getEncoder().encodeToString(salt); // Store salt as Base64 encoded string
+        return salt; // Store salt as Base64 encoded string
+    }
+
+
+    public User searchByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }

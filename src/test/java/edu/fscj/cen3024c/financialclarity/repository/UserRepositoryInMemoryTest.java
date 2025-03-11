@@ -29,8 +29,8 @@ public class UserRepositoryInMemoryTest {
         user.setAge(21);
         user.setTotalExpenses("5000");
         user.setTotalIncome("10000");
-        user.setSalt("salt");
-        user.setHash("hash");
+        user.setSalt("salt".getBytes());
+        user.setHash("hash".getBytes());
 
 
         User savedUser = userRepository.save(user);
@@ -48,8 +48,8 @@ public class UserRepositoryInMemoryTest {
         user.setAge(21);
         user.setTotalExpenses("5000");
         user.setTotalIncome("10000");
-        user.setSalt("salt");
-        user.setHash("hash");
+        user.setSalt("salt".getBytes());
+        user.setHash("hash".getBytes());
 
         entityManager.persistAndFlush(user);
 

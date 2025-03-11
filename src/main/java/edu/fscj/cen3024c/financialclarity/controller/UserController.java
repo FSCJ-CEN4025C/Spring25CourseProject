@@ -20,7 +20,7 @@ import org.slf4j.profiler.Profiler;
 import org.slf4j.profiler.TimeInstrument;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/")
 public class UserController {
 
     @Autowired
@@ -32,7 +32,7 @@ public class UserController {
         return new UserDTO(user.getId(), user.getUsername(), user.getEmail(), user.getAge(), user.getTotalIncome(), user.getTotalExpenses() );
     }
 
-    @CrossOrigin(origins = {"http://example.com", "http://localhost"})
+    @CrossOrigin(origins = {"*"})
 
     @GetMapping
     public List<UserDTO> getAllUsers() {
@@ -49,7 +49,7 @@ public class UserController {
         return ResponseEntity.ok(userDTO);
     }
 
-    @PostMapping()
+    @PostMapping("/register")
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
         Profiler profiler = new Profiler("createUser");
         profiler.start("Create User");
