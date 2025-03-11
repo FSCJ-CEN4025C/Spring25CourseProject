@@ -7,6 +7,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
+    // TODO: add addtional config files, make sure this one is correct
 
     private static final String[] SWAGGER_WHITELIST = {
         "/v3/api-docs/**",

@@ -4,6 +4,8 @@ import edu.fscj.cen3024c.financialclarity.jwt.models.UserPrincipal;
 import edu.fscj.cen3024c.financialclarity.entity.User;
 import edu.fscj.cen3024c.financialclarity.service.UserService;
 import lombok.AllArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,6 +21,7 @@ import java.security.NoSuchAlgorithmException;
 public class ApplicationUserDetailsService implements UserDetailsService {
 
   private final UserService userService;
+
 
   @Override
   public UserDetails loadUserByUsername(String email)
@@ -44,6 +47,8 @@ public class ApplicationUserDetailsService implements UserDetailsService {
 
     if (!verified) throw new BadCredentialsException("Unauthorized");
 
+    
+
     return userEntity;
   }
 
@@ -58,18 +63,22 @@ public class ApplicationUserDetailsService implements UserDetailsService {
       "Password cannot be empty or whitespace only string."
     );
 
-    if (storedHash.length != 64) throw new IllegalArgumentException(
-      "Invalid length of password hash (64 bytes expected)"
-    );
+    //TODO: double check this to make sure it's correct
+   
+    // if (storedHash.length != 64) throw new IllegalArgumentException(
+    //   "Invalid length of password hash (64 bytes expected)"
+    // );
 
-    if (storedSalt.length != 128) throw new IllegalArgumentException(
-      "Invalid length of password salt (64 bytes expected)."
-    );
+    // if (storedSalt.length != 128) throw new IllegalArgumentException(
+    //   "Invalid length of password salt (64 bytes expected)."
+    // );
 
-    var md = MessageDigest.getInstance("SHA-512");
-    md.update(storedSalt);
+    // var md = MessageDigest.getInstance("SHA-512");
+    // md.update(storedSalt);
 
-    var computedHash = md.digest(password.getBytes(StandardCharsets.UTF_8));
+    // var computedHash = md.digest(password.getBytes(StandardCharsets.UTF_8));
+
+    var computedHash = userService.hashPassword(password, storedSalt);
 
     for (int i = 0; i < computedHash.length; i++) {
       if (computedHash[i] != storedHash[i]) return false;

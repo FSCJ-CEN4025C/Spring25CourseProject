@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 class AuthenticateController {
 
-
-  //TODO: fix below
   // private final AuthenticationManager authenticationManager;
   private final JwtUtil jwtTokenUtil;
   private final ApplicationUserDetailsService userDetailsService;

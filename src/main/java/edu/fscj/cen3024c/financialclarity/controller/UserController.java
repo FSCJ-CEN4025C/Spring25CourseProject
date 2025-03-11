@@ -32,7 +32,7 @@ public class UserController {
         return new UserDTO(user.getId(), user.getUsername(), user.getEmail(), user.getAge(), user.getTotalIncome(), user.getTotalExpenses() );
     }
 
-    @CrossOrigin(origins = {"*"})
+    // @CrossOrigin(origins = {"*"})
 
     @GetMapping
     public List<UserDTO> getAllUsers() {

@@ -72,7 +72,7 @@ public class UserService {
     }
 
     // Password hashing logic
-    private byte[] hashPassword(String password, byte[] salt) {
+    public byte[] hashPassword(String password, byte[] salt) {
         try {
             PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), salt, HASH_ITERATIONS, HASH_KEY_LENGTH);
             SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
