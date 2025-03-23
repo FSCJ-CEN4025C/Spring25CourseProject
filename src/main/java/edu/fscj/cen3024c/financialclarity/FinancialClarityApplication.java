@@ -47,16 +47,16 @@ public class FinancialClarityApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-//		// Create User
-//		User user1 = new User();
-//		user1.setUsername("Cole");
-//		user1.setAge(20);
-//		user1.setEmail("test@example.com");
-//		user1.setHash("testhash");
-//		user1.setSalt("testsalt");
-//		user1.setTotalIncome("1000");
-//		user1.setTotalExpences("1000");
-//		usersRepository.save(user1);
+		// Create User
+		// User user1 = new User();
+		// user1.setUsername("Cole");
+		// user1.setAge(20);
+		// user1.setEmail("test@example.com");
+		// user1.setHash("testhash");
+		// user1.setSalt("testsalt");
+		// user1.setTotalIncome("1000");
+		// user1.setTotalExpences("1000");
+		// usersRepository.save(user1);
 //
 //		// Create Budget
 //		Budget budget = new Budget();
