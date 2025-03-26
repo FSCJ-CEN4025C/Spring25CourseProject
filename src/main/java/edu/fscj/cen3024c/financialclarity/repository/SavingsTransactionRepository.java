@@ -10,6 +10,7 @@ import java.util.List;
 public interface SavingsTransactionRepository extends JpaRepository<SavingsTransaction, Integer> {
     List<SavingsTransaction> findAll();
     SavingsTransaction findByTransactionId(Integer transactionId);
-    void deleteBySavingsId(Integer transactionId);
+
+    void deleteByTransactionId(Integer transactionId);
 }
 
