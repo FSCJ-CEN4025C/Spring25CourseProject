@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 // import { MatButtonModule } from '@angular/material/button';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './home/login/login.component';
-import { CreateAccountComponent} from './home/createaccount/createaccount.component'
+import { CreateAccountComponent} from './home/createaccount/createaccount.component';
 
 @Component({
   selector: 'app-root',
