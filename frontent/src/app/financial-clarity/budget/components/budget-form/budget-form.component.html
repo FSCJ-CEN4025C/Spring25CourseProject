@@ -1,0 +1,82 @@
+<mat-card class="form-card">
+    <h2>{{ budgetId ? "Update/View Budget" : "Create Budget"}}</h2>
+    <form class="budget-form" [formGroup]="form">
+
+        <!-- Category Name -->
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Category Name</mat-label>
+            <input matInput formControlName="categoryName" placeholder="Ex. Electricity">
+            <mat-error *ngIf="form.controls['categoryName'].hasError('required')">
+                Category name is required.
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Category Type -->
+        <mat-form-field appearance="fill">
+            <mat-label>Category Type</mat-label>
+            <mat-select formControlName="categoryType">
+                <mat-option *ngFor="let type of categoryTypes" [value]="type">{{ type }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.controls['categoryType'].hasError('required')">
+                Category type is required.
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Amount -->
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Amount</mat-label>
+            <input matInput formControlName="amount" placeholder="Ex. 200.00" type="number">
+            <mat-error *ngIf="form.controls['amount'].hasError('required')">
+                Amount is required.
+            </mat-error>
+            <mat-error *ngIf="form.controls['amount'].hasError('min')">
+                Amount must be greater than zero.
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Period -->
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Period</mat-label>
+            <mat-select formControlName="period">
+                <mat-option *ngFor="let period of periods" [value]="period">{{ period }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!-- Start Date -->
+        <mat-form-field appearance="fill">
+            <mat-label>Start Date</mat-label>
+            <input matInput formControlName="startDate" [matDatepicker]="pickerStart">
+            <mat-datepicker-toggle matIconSuffix [for]="pickerStart"></mat-datepicker-toggle>
+            <mat-datepicker #pickerStart></mat-datepicker>
+            <mat-error *ngIf="form.controls['startDate'].hasError('required')">
+                Start date is required.
+            </mat-error>
+        </mat-form-field>
+
+        <!-- End Date -->
+        <mat-form-field appearance="fill">
+            <mat-label>End Date</mat-label>
+            <input matInput formControlName="endDate" [matDatepicker]="pickerEnd">
+            <mat-datepicker-toggle matIconSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+            <mat-datepicker #pickerEnd></mat-datepicker>
+            <mat-error *ngIf="form.controls['endDate'].hasError('required')">
+                End date is required.
+            </mat-error>
+            <mat-error *ngIf="form.controls['endDate'].hasError('dateRange')">
+                End date must be after start date.
+            </mat-error>
+        </mat-form-field>
+
+        <div class="button-group">
+
+            <button mat-raised-button color="primary" (click)="submitForm()">
+                 {{actionButtonLabel}}
+            </button>
+            &nbsp;&nbsp;
+            <button  mat-raised-button color="warn" (click)="clear()">
+                 Clear
+            </button> 
+        </div>
+    
+    </form>
+</mat-card>

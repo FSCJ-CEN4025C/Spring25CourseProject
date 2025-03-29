@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from "./financial-clarity/home/home.component";
 
 const routes: Routes = [
   {
@@ -20,6 +20,12 @@ const routes: Routes = [
     path: "anti-heroes",
     loadChildren: () =>
       import("./anti-hero/anti-hero.module").then((m) => m.AntiHeroModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "budgets",
+    loadChildren: () =>
+        import("./financial-clarity/budget/budget.module").then((m) => m.BudgetModule),
     canActivate: [AuthGuard]
   },
   {
