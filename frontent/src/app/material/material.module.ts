@@ -8,7 +8,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
-import {MatSnackBarModule} from '@angular/material/snack-bar'
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [],
@@ -23,7 +25,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar'
     MatInputModule,
     MatCardModule,
     MatFormFieldModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatDialogModule
   ],
   exports: [
     MatToolbarModule,
@@ -34,7 +38,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar'
     MatSelectModule,
     MatInputModule,
     MatCardModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatDialogModule
   ]
 })
 export class MaterialModule { }

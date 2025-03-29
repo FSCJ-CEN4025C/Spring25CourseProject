@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { NavigationStart, Router, Event } from '@angular/router';
 import { filter } from 'rxjs';
 
 @Component({
@@ -7,27 +7,18 @@ import { filter } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'superheroes';
-  // isDisabled = true;
-  // model = 'seiji';
-
-
-  // Below checks to see if we should render the nav, if we are on a login screen it should not render
-  showNavbar: boolean = true;
+export class AppComponent implements OnInit {
+  title = 'financial-clarity';
+  showNavbar = true;
 
   constructor(private router: Router) {}
 
   ngOnInit() {
-    // Subscribe to router events to handle route changes
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        // Hide navbar on specific routes
-        const excludedRoutes = ['/', '/login', '/login/register'];
-        this.showNavbar = !excludedRoutes.includes(event.url);
-      }
-    });
+    this.router.events
+        .pipe(filter((event: Event): event is NavigationStart => event instanceof NavigationStart))
+        .subscribe((event: NavigationStart) => {
+          const excludedRoutes = ['/', '/login', '/login/register'];
+          this.showNavbar = !excludedRoutes.includes(event.url);
+        });
   }
-
 }
-
