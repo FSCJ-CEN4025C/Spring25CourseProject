@@ -32,7 +32,8 @@ public class BudgetController {
     @Autowired
     private UserRepository userRepository;
 
-    private static final Logger logger = LoggerFactory.getLogger(BudgetController.class);
+    private static final Logger logger =
+            LoggerFactory.getLogger(BudgetController.class);
 
     private BudgetDTO convertToDTO(Budget budget) {
         return new BudgetDTO(budget.getId(),
@@ -79,7 +80,10 @@ public class BudgetController {
     }
 
     @PutMapping("/updateBudget/{budgetId}")
-    public ResponseEntity<BudgetDTO> updateBudget(@PathVariable Integer budgetId, @RequestBody String username, @RequestBody BudgetDTO budgetDTO) {
+    public ResponseEntity<BudgetDTO> updateBudget(
+            @PathVariable Integer budgetId,
+            @RequestBody String username,
+            @RequestBody BudgetDTO budgetDTO) {
         Optional<Budget> optionalBudget = budgetService.findById(budgetId);
         Budget budget = optionalBudget.get();
         if (budget != null) {
