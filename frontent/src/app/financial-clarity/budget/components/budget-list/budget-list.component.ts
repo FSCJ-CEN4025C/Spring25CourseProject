@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { TableActions } from '../../enums/table-actions.enum';
 import { Budget } from '../../models/budget.interface';
 import { Store } from '@ngrx/store';
-import { deleteBudget } from '../../state/budget.actions';
+import {removeBudgetState} from '../../state/budget.actions';
 import { AppState } from 'src/app/state/app.state';
 import { ConfirmationDialogComponent } from "../../../../shared/components/confirmation-dialog.component";
 import { SnackbarService } from "../../../../core/services/snackbar.service";
@@ -53,7 +53,7 @@ export class BudgetListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.store.dispatch(deleteBudget({ id: budget.id }));
+        this.store.dispatch(removeBudgetState({ budgetId: budget.id }));
         this.snackbarService.show('Budget deleted successfully!', 'OK', 3000);
       }
     });
