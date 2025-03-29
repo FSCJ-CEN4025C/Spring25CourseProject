@@ -126,6 +126,11 @@ export class BudgetFormComponent implements OnInit {
     return endDate && startDate && endDate < startDate ? { dateRange: true } : null;
   }
 
+  get isUpdateMode(): boolean {
+    return !!this.form?.get('id')?.value;
+  }
+
+
   clear() {
     this.form.reset();
     this.snackbarService.show('Form cleared successfully');

@@ -1,5 +1,5 @@
 <mat-card class="form-card">
-    <h2>{{ budgetId ? "Update/View Budget" : "Create Budget"}}</h2>
+    <h2>{{ isUpdateMode ? 'Update/View Budget' : 'Create Budget' }}</h2>
     <form class="budget-form" [formGroup]="form">
 
         <!-- Category Name -->

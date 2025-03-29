@@ -17,7 +17,7 @@
         }
       },
       "root": "src",
-      "sourceRoot": "src/app",
+      "sourceRoot": "src",
       "prefix": "app",
       "architect": {
         "build": {
@@ -77,10 +77,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "superheroes:build:production"
+              "browserTarget": "financial-clarity:build:production"
             },
             "development": {
-              "browserTarget": "superheroes:build:development"
+              "browserTarget": "financial-clarity:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -88,7 +88,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "superheroes:build"
+            "browserTarget": "financial-clarity:build"
           }
         },
         "test": {
