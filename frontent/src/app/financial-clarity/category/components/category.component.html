@@ -1,0 +1,15 @@
+<div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+</div>
+
+<ul>
+    <li *ngFor="let category of categories$ | async" (click)="selectCategory(category)">
+        {{ category.name }}
+    </li>
+</ul>
+
+<div *ngIf="selectedCategory">
+    <h3>{{ selectedCategory.name }}</h3>
+    <p>ID: {{ selectedCategory.id }}</p>
+    <p>Other details...</p>
+</div>
