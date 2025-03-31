@@ -10,6 +10,6 @@
       <li class="navbar-item"><a href="/settings" class="navbar-link">Settings</a></li>
     </ul>
     
-    <div class="navbar-user">Hi, user</div>
+    <div  *ngIf="user$ | async as user" class="navbar-user" >Hi, {{ user.username }}</div>
   </div>
 </nav>

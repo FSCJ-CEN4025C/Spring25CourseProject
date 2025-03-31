@@ -12,10 +12,9 @@ import { CategoryService } from 'src/app/financial-clarity/category/services/cat
   styleUrls: ['./add-income.component.scss']
 })
 export class AddIncomeComponent implements OnInit {
-  user$ = this.store.select(selectUser());
   categories$: Observable<Category[]> | undefined;
 
-  constructor(private store: Store, private categoryService: CategoryService) {}
+  constructor(private categoryService: CategoryService) {}
 
   ngOnInit(): void {
     this.loadCategories();

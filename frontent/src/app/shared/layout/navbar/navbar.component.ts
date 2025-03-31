@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { selectUser } from 'src/app/auth/state/auth.selectors';
 
 @Component({
   selector: 'app-navbar',
@@ -6,8 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+  user$ = this.store.select(selectUser());
 
-  constructor() { }
+  constructor(private store: Store,) { }
 
   ngOnInit(): void {
   }

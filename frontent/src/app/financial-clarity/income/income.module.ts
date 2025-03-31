@@ -17,7 +17,7 @@ import { MaterialModule } from 'src/app/material/material.module';
   imports: [
     CommonModule,
     IncomeRoutingModule,
-        MaterialModule,
+    MaterialModule,
 
   ]
 })
