@@ -1,0 +1,102 @@
+
+@import '../../../../styles.scss';
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  width: 400px;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1001;
+}
+
+.modal-header {
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+
+  h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .close-button {
+    color: #666;
+  }
+}
+
+.modal-content {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modal-footer {
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px 24px;
+  gap: 12px;
+  background-color: #f8f8f8;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.save-button {
+  background-color: $primary-color !important;
+  color: white !important;
+  font-weight: 500;
+  padding: 4px 24px !important;
+  border-radius: 4px !important;
+}
+
+.cancel-button {
+  color: #666 !important;
+  font-weight: 500;
+  padding: 4px 24px !important;
+  border-radius: 4px !important;
+}
+
+/* Input focus styling - using theme color as accent */
+::ng-deep .mat-form-field.mat-focused .mat-form-field-outline {
+  color: $text-color !important;
+}
+
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: $text-color !important;
+}
+
+/* Error styling */
+::ng-deep .mat-error {
+  color: #e74c3c !important;
+}
+
+/* Category name accent */
+.category-accent {
+  color: $text-color;
+  font-weight: 500;
+}

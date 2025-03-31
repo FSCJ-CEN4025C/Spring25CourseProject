@@ -18,6 +18,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { AuthModule } from './auth/auth.module';
+import { CoreModule } from './core/core.module';
 
 
 
@@ -48,7 +50,10 @@ export function tokenGetter() {
       config: {
         tokenGetter
       }
-    })
+    }),
+
+    AuthModule,
+    CoreModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true }

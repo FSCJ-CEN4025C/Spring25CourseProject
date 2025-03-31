@@ -28,6 +28,15 @@ const routes: Routes = [
         import("./financial-clarity/budget/budget.module").then((m) => m.BudgetModule),
     canActivate: [AuthGuard]
   },
+
+  {
+    //TODO: fix
+    path: "settings",
+    loadChildren: () => 
+      import("./financial-clarity/income/income.module").then((m) => m.IncomeModule),
+    canActivate: [AuthGuard]
+  },
+
   {
     path: "**",  // Wildcard route that catches any unrecognized path
     redirectTo: "",  // Redirect to home if route is not recognized or the user is not authenticated
