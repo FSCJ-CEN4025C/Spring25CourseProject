@@ -30,8 +30,7 @@ const routes: Routes = [
   },
 
   {
-    //TODO: fix
-    path: "settings",
+    path: "income",
     loadChildren: () => 
       import("./financial-clarity/income/income.module").then((m) => m.IncomeModule),
     canActivate: [AuthGuard]
