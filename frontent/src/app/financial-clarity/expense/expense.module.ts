@@ -3,4 +3,4 @@ import { NgModule } from "@angular/core";
 @NgModule({
   imports: [],
 })
-export class IncomeModule {}
+export class ExpenseModule {}

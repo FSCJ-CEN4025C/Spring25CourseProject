@@ -1,0 +1,16 @@
+<ul>
+  <li *ngFor="let category of categories$ | async">
+    {{ category.name }}
+  </li>
+</ul>
+
+<button type="button" (click)="openModal()">test category</button>
+
+<div *ngIf="isModalVisible">
+  <app-add-transaction-modal
+    [selectedCategory]="categoryForModal"
+    (closeModalEvent)="closeModal()"
+    (saveSuccessEvent)="onModalSave()"
+  >
+  </app-add-transaction-modal>
+</div>
