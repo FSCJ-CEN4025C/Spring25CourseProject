@@ -1,6 +1,8 @@
 // Variables
-$primary-color: #f5b7b1; // Light pink/red background
-$text-color: #16a085;    // Green text color
+
+
+@import '../../../../styles.scss';  // Adjust the path based on your folder structure
+
 $hover-color: darken($text-color, 10%);
 $font-family: 'Arial', sans-serif;
 
