@@ -28,6 +28,13 @@ public class ExpenseService {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    public double getTotalExpense() {
+        List<Expenses> expenses = expensesRepository.findAll();
+        double totalExpense = expenses.stream().mapToDouble(Expenses::getAmount).sum();
+        return totalExpense;
+    }
+
+
     public Expenses findByExpencesId(Integer expensesId) {return expensesRepository.findByExpenseId(expensesId);}
     public List<Expenses> findAll() {return expensesRepository.findAll();}
     @Transactional

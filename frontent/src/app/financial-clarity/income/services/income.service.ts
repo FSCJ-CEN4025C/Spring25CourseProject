@@ -11,9 +11,34 @@ export class IncomeService {
   constructor(private http: HttpClient) {}
 
   addIncome(income: Income): Observable<Income> {
-    return this.http.post<Income>(`${environment.apiURL}/incomes`, income).pipe(
+    console.log("\n\n income server");
+    console.log(income);
+    return this.http.post<Income>(`${environment.apiURL}/income`, income).pipe(
       tap((data: Income) => data),
       catchError((err) => throwError(() => err))
     );
   }
+
+  getIncomes(): Observable<Income[]> {
+    return this.http.get<Income[]>(`${environment.apiURL}/income`).pipe(
+      tap((data: Income[]) => data),
+      catchError((err) => throwError(() => err))
+    );
+  }
+
+  getTotalIncome(): Observable<Income[]> {
+    return this.http
+      .get<Income[]>(`${environment.apiURL}/income/totalIncome`)
+      .pipe(
+        tap((data: Income[]) => data),
+        catchError((err) => throwError(() => err))
+      );
+  }
 }
+
+// {
+
+//   "categoryId": 1,
+//   "amount": 0,
+//   "name": "test123"
+// }

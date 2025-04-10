@@ -51,6 +51,10 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
+        //TODO: fix email is the unique key in the enitity  but are auth use the username.
+        // Update it so the frontend passes username and saves it. Update entity to have unique and not null on username and remove the email contstraints
+        userDTO.setUsername(userDTO.getEmail());
+
         Profiler profiler = new Profiler("createUser");
         profiler.start("Create User");
 

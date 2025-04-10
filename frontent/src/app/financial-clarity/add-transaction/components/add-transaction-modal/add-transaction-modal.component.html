@@ -3,9 +3,10 @@
     <div class="modal-header">
       <h2>
         Category:
-        <span *ngIf="selectedCategory" style="color: #16a085">{{
-          selectedCategory.name
-        }}</span>
+        <span *ngIf="selectedCategory">
+          <span style="color: #16a085">{{ selectedCategory.name }}</span>
+          <span> {{ selectedCategory.type }}</span>
+        </span>
       </h2>
       <button class="close-button" (click)="close()" mat-icon-button>
         <mat-icon>close</mat-icon>
@@ -13,6 +14,17 @@
     </div>
     <form [formGroup]="transactionForm" (ngSubmit)="saveTransaction()">
       <div class="modal-content">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Name</mat-label>
+          <input
+            matInput
+            type="input"
+            formControlName="name"
+            placeholder="Enter name"
+            autocomplete="off"
+          />
+        </mat-form-field>
+
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Amount</mat-label>
           <input
@@ -23,7 +35,6 @@
             autocomplete="off"
           />
           <span matPrefix>$&nbsp;</span>
-          <mat-hint>Enter budget amount</mat-hint>
         </mat-form-field>
       </div>
 

@@ -26,6 +26,12 @@ public class IncomeService {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    public double getTotalIncome() {
+        List<Income> Incomes = incomeRepository.findAll();
+        double totalIncome = Incomes.stream().mapToDouble(Income::getAmount).sum();   
+        return totalIncome;
+    }
+
     public List<Income> findAll() { return incomeRepository.findAll(); }
     public Income findIncomeById(Integer incomeId) {return incomeRepository.findByIncomeId(incomeId);}
     @Transactional
@@ -35,7 +41,6 @@ public class IncomeService {
         User user = userRepository.findById(incomeDTO.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
         Category category = categoryRepository.findById(incomeDTO.getCategoryId()).orElseThrow(() -> new RuntimeException("Category not found"));
-
         Income income = new Income();
         income.setIncomeId(incomeDTO.getIncomeId());
         income.setUser(user);

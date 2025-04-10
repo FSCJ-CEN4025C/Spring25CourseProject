@@ -3,6 +3,8 @@ import { catchError, Observable } from "rxjs";
 import { CategoryType } from "src/app/financial-clarity/category/enums/category-type.enum";
 import { Category } from "src/app/financial-clarity/category/models/category.interface";
 import { CategoryService } from "src/app/financial-clarity/category/services/category.service";
+import { ExpenseService } from "src/app/financial-clarity/expense/services/expense.service";
+import { IncomeService } from "src/app/financial-clarity/income/services/income.service";
 
 @Component({
   selector: "app-test",
@@ -10,27 +12,34 @@ import { CategoryService } from "src/app/financial-clarity/category/services/cat
   styleUrls: ["./test.component.scss"],
 })
 export class TestComponent implements OnInit {
-  categoryForModal: Category = {
-    id: 0,
-    name: "Food/Food",
+  categoryIncomeForModal: Category = {
+    id: 1,
+    name: "Job 1",
     type: CategoryType.INCOME,
   };
-  categories$: Observable<Category[]> | undefined;
+
+  categoryExpenseForModal: Category = {
+    id: 1,
+    name: "Food",
+    type: CategoryType.EXPENSE,
+  };
+
+  categories$ = this.categoryService.getCategories();
   isModalVisible = false;
 
-  constructor(private categoryService: CategoryService) {}
+  incomes$ = this.incomeService.getIncomes();
+  totalIncome$ = this.incomeService.getTotalIncome();
 
-  ngOnInit(): void {
-    this.loadCategories();
-  }
+  expenses$ = this.expenseService.getExpenses();
+  totalExpense$ = this.expenseService.getTotalExpense();
 
-  loadCategories(): void {
-    this.categories$ = this.categoryService.getCategories().pipe(
-      catchError((err) => {
-        return [];
-      })
-    );
-  }
+  constructor(
+    private categoryService: CategoryService,
+    private incomeService: IncomeService,
+    private expenseService: ExpenseService
+  ) {}
+
+  ngOnInit(): void {}
 
   openModal(): void {
     this.isModalVisible = true;
