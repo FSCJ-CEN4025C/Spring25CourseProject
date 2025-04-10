@@ -23,7 +23,6 @@ export class BudgetEffects {
     }, {dispatch: true}
   );
 
-  // add budgets in the database
     addBudget$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(BudgetActions.ADD_BUDGET_API),
@@ -38,7 +37,8 @@ export class BudgetEffects {
                 )
             )
         );
-    }, { dispatch: true });
+    }, { dispatch: true }
+    );
 
 
    modifyBudget$ = createEffect(() =>{

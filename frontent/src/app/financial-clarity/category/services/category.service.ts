@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Category } from '../models/category.interface';
+import { Budget } from '../../budget/models/budget.interface'
 
 @Injectable({
     providedIn: 'root'
@@ -26,15 +27,15 @@ export class CategoryService {
         )
     }
 
-    getCategory(id: number): Observable<Category> {
-        return this.http.get<Category>(`${environment.apiURL}/categories/${id}`).pipe(
-            tap((data: Category) => data),
+    getBudgetsByCategoryId(categoryId: number): Observable<Budget[]> {
+        return this.http.get<Budget[]>(`${environment.apiURL}/budgets?categoryId=${categoryId}`).pipe(
             catchError(err => throwError(() => err))
-        )
+        );
     }
 
-    addCategory(category: Category) : Observable<Category> {
-        return this.http.post<Category>(`${environment.apiURL}/categories`, category).pipe(
+
+    getCategory(id: number): Observable<Category> {
+        return this.http.get<Category>(`${environment.apiURL}/categories/${id}`).pipe(
             tap((data: Category) => data),
             catchError(err => throwError(() => err))
         )
@@ -51,4 +52,14 @@ export class CategoryService {
             catchError(err => throwError(() => err))
         )
     }
+
+    // Use with Cole's API
+    getCategorySummary(id: number): Observable<{ totalIncome: number; totalExpense: number }> {
+        return this.http.get<{ totalIncome: number; totalExpense: number }>(
+            `${environment.apiURL}/categories/${id}/summary`
+        ).pipe(
+            catchError(err => throwError(() => err))
+        );
+    }
+
 }

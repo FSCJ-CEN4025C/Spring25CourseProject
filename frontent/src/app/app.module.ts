@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BudgetModule } from './financial-clarity/budget/budget.module';
-
+import { CategoryModule} from "./financial-clarity/category/category.module";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -34,6 +34,7 @@ export function tokenGetter() {
   imports: [
     BrowserModule,
     BudgetModule,
+    CategoryModule,
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
