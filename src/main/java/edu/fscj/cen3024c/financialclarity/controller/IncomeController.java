@@ -3,13 +3,18 @@ package edu.fscj.cen3024c.financialclarity.controller;
 import edu.fscj.cen3024c.financialclarity.dto.IncomeDTO;
 import edu.fscj.cen3024c.financialclarity.entity.Income;
 import edu.fscj.cen3024c.financialclarity.entity.User;
+import edu.fscj.cen3024c.financialclarity.jwt.models.UserPrincipal;
 import edu.fscj.cen3024c.financialclarity.repository.UserRepository;
 import edu.fscj.cen3024c.financialclarity.service.IncomeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,6 +39,14 @@ public class IncomeController {
         return income.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
+  
+    @GetMapping("/totalIncome")
+    public ResponseEntity<Double> getTotalIncome() {
+        double totalIncome = incomeService.getTotalIncome();
+        return ResponseEntity.ok(totalIncome);
+    }
+
+
     @CrossOrigin(origins = {"http://example.com", "http://localhost"})
     @GetMapping("/{incomeId}")
     public ResponseEntity<IncomeDTO> getIncome(@PathVariable int incomeId) {
@@ -43,7 +56,10 @@ public class IncomeController {
     }
 
     @PostMapping()
-    public ResponseEntity<IncomeDTO> getIncome(@RequestBody IncomeDTO incomeDTO) {
+    public ResponseEntity<IncomeDTO> postIncome(@RequestBody IncomeDTO incomeDTO,  @AuthenticationPrincipal UserPrincipal userPrincipal) {
+        Integer userId = userPrincipal.getId();
+        incomeDTO.setUserId(userId);
+
         IncomeDTO savedIncomeDTO = incomeService.save(incomeDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedIncomeDTO);
     }

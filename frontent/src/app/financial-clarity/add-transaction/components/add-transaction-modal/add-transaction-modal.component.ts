@@ -26,6 +26,7 @@ export class AddTransactionModalComponent implements OnInit {
   ngOnInit(): void {
     this.transactionForm = this.fb.group({
       categoryId: [this.selectedCategory?.id, [Validators.required]],
+      name: [null, [Validators.required]],
       amount: [null, [Validators.required]],
     });
   }
@@ -45,15 +46,17 @@ export class AddTransactionModalComponent implements OnInit {
     }
 
     if (this.selectedCategory?.type == CategoryType.INCOME) {
-      console.log("\n\n test");
-      console.log(this.transactionForm.value);
       const response = this.incomeService.addIncome(this.transactionForm.value);
       response.subscribe((data) => {
         console.log(data);
       });
-      console.log(response);
     } else if (this.selectedCategory?.type == CategoryType.EXPENSE) {
-      this.expenseService.addExpense(this.transactionForm.value);
+      const response = this.expenseService.addExpense(
+        this.transactionForm.value
+      );
+      response.subscribe((data) => {
+        console.log(data);
+      });
     }
 
     this.onModalSave.emit();

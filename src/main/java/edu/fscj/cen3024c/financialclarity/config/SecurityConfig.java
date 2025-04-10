@@ -4,6 +4,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import edu.fscj.cen3024c.financialclarity.jwt.filters.JwtRequestFilter;
 
 @Configuration
 public class SecurityConfig {
@@ -16,19 +19,76 @@ public class SecurityConfig {
         "user/register" 
     };
 
+    private final JwtRequestFilter jwtRequestFilter;
+
+    
+    public SecurityConfig(JwtRequestFilter jwtRequestFilter) {
+        this.jwtRequestFilter = jwtRequestFilter;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.cors().and() .csrf().disable()
+        http
+            .cors()
+            .and() 
+            .csrf().disable()
             .authorizeHttpRequests(auth -> auth
                 .anyRequest().permitAll()
                 // .requestMatchers(SWAGGER_WHITELIST).permitAll()
                 // .anyRequest().authenticated()
             )
-            .httpBasic();
+            .httpBasic()
+            .and()
+            .addFilterBefore(jwtRequestFilter,  UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 }
+
+
+
+
+
+// package edu.fscj.cen3024c.financialclarity.config;
+
+// import org.springframework.context.annotation.Bean;
+// import org.springframework.context.annotation.Configuration;
+// import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+// import org.springframework.security.web.SecurityFilterChain;
+
+// import edu.fscj.cen3024c.financialclarity.jwt.filters.JwtRequestFilter;
+
+// @Configuration
+// public class SecurityConfig {
+//     // TODO: add addtional config files, make sure this one is correct
+
+//     private static final String[] SWAGGER_WHITELIST = {
+//         "/v3/api-docs/**",
+//         "/swagger-ui/**",
+//         "/swagger-ui.html",
+//         "user/register" 
+//     };
+
+
+
+//     @Bean
+//     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//         http.cors().and() .csrf().disable()
+//             .authorizeHttpRequests(auth -> auth
+//                 .anyRequest().permitAll()
+//                 // .requestMatchers(SWAGGER_WHITELIST).permitAll()
+//                 // .anyRequest().authenticated()
+//             )
+//             .httpBasic()
+    
+
+//         return http.build();
+//     }
+// }
+
+
+
+
 
 
 

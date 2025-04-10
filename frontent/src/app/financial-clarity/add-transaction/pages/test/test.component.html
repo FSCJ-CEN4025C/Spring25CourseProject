@@ -6,9 +6,79 @@
 
 <button type="button" (click)="openModal()">test category</button>
 
+<hr />
+<div class="navbar-user">
+  <span *ngIf="totalIncome$ | async as totalIncome; else incomeLoadingOrError">
+    Total Income: {{ totalIncome }}
+  </span>
+
+  <ng-template #incomeLoadingOrError>
+    <span>No Total Income</span>
+  </ng-template>
+</div>
+
+<div class="navbar-user">
+  <span
+    *ngIf="totalExpense$ | async as totalExpense; else expenseLoadingOrError"
+  >
+    Total Expense: {{ totalExpense }}
+  </span>
+
+  <ng-template #expenseLoadingOrError>
+    <span>No Total Expense</span>
+  </ng-template>
+</div>
+
+<hr />
+<div *ngIf="incomes$ | async as incomeList">
+  <div *ngIf="incomeList.length > 0; else noIncome">
+    <h3>Incomes:</h3>
+    <div
+      *ngFor="let incomeItem of incomeList; let i = index"
+      class="income-record"
+    >
+      <h4>Record {{ i + 1 }}</h4>
+      <ul>
+        <li *ngFor="let property of incomeItem | keyvalue">
+          <strong>{{ property.key }}:</strong>
+          <span>{{ property.value | json }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <ng-template #noIncome>
+    <p>No income records found.</p>
+  </ng-template>
+</div>
+
+<hr />
+
+<div *ngIf="expenses$ | async as expenseList">
+  <div *ngIf="expenseList.length > 0; else noExpenses">
+    <h3>Expenses:</h3>
+    <div
+      *ngFor="let expenseItem of expenseList; let i = index"
+      class="expense-record"
+    >
+      <h4>Record {{ i + 1 }}</h4>
+      <ul>
+        <li *ngFor="let property of expenseItem | keyvalue">
+          <strong>{{ property.key }}:</strong>
+          <span>{{ property.value | json }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <ng-template #noExpenses>
+    <p>No expense records found.</p>
+  </ng-template>
+</div>
+
+<hr />
+
 <div *ngIf="isModalVisible">
   <app-add-transaction-modal
-    [selectedCategory]="categoryForModal"
+    [selectedCategory]="categoryExpenseForModal"
     (closeModalEvent)="closeModal()"
     (saveSuccessEvent)="onModalSave()"
   >
