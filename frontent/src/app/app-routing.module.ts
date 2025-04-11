@@ -30,6 +30,15 @@ const routes: Routes = [
   },
 
   {
+    path: "categories",
+    loadChildren: () =>
+        import("./financial-clarity/category/category.module").then(
+            (m) => m.CategoryModule
+        ),
+    canActivate: [AuthGuard],
+  },
+
+  {
     path: "income",
     loadChildren: () =>
       import("./financial-clarity/add-transaction/add-transaction.module").then(

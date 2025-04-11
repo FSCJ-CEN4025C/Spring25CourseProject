@@ -4,9 +4,11 @@ export interface Category {
     id: number;
     name: string;
     type: CategoryType;
+    totalAmount?: number;
 }
 
 export interface NewCategory {
     name: string;
     type: CategoryType;
+    totalAmount?: number;
 }

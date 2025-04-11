@@ -26,6 +26,18 @@ export class BudgetService {
     )
    }
 
+    getBudgetsByCategoryId(categoryId: number): Observable<Budget[]> {
+        return this.http.get<Budget[]>(`${environment.apiURL}/budgets?categoryId=${categoryId}`).pipe(
+            tap((data: Budget[]) => {
+                console.log('Fetched budgets for category:', categoryId, data);
+            }),
+            catchError(err => {
+                console.error('Error fetching budgets for category', categoryId, err);
+                throw err;
+            })
+        );
+    }
+
     createBudget(budget: Omit<Budget, 'id'>): Observable<Budget> {
         return this.http.post<Budget>(`${environment.apiURL}/budgets`, budget).pipe(
             tap((createdBudget) => createdBudget),

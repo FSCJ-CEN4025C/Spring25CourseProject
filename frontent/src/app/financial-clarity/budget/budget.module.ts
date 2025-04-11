@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BudgetRoutingModule } from "./budget-routing.module";
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { MaterialModule } from "../../material/material.module";
 
@@ -11,20 +11,19 @@ import { BudgetFormComponent } from './components/budget-form/budget-form.compon
 import { BudgetListComponent } from './components/budget-list/budget-list.component';
 import { FormComponent } from './pages/form/form.component';
 import { ListComponent } from './pages/list/list.component';
-import { CategoryComponent } from "../category/components/category.component";
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { budgetReducer } from './state/budget.reducers';
 import { BudgetEffects } from './state/budget.effects';
 import { ConfirmationDialogComponent } from "../../shared/components/confirmation-dialog.component";
+import {AddTransactionModule} from "../add-transaction/add-transaction.module";
 
 @NgModule({
     declarations: [
         BudgetCommandBarComponent,
         BudgetFormComponent,
         BudgetListComponent,
-        CategoryComponent,
 
         FormComponent,
         ListComponent,
@@ -37,13 +36,14 @@ import { ConfirmationDialogComponent } from "../../shared/components/confirmatio
         ReactiveFormsModule,
         MaterialModule,
         StoreModule.forFeature('budgetState', budgetReducer),
-        EffectsModule.forFeature([BudgetEffects])
+        EffectsModule.forFeature([BudgetEffects]),
+        FormsModule,
+        AddTransactionModule
     ],
     exports: [
         BudgetCommandBarComponent,
         BudgetFormComponent,
         BudgetListComponent,
-        CategoryComponent,
         ConfirmationDialogComponent
     ]
 })

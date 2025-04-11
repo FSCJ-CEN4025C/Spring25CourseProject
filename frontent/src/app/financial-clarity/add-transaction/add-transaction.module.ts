@@ -8,12 +8,15 @@ import { AddTransactionRoutingModule } from "./add-transaction-routing.module";
 import { AddTransactionModalComponent } from "./components/add-transaction-modal/add-transaction-modal.component";
 
 @NgModule({
-  declarations: [TestComponent, AddTransactionModalComponent],
-  imports: [
-    CommonModule,
-    AddTransactionRoutingModule,
-    MaterialModule,
-    ReactiveFormsModule,
-  ],
+    declarations: [TestComponent, AddTransactionModalComponent],
+    imports: [
+        CommonModule,
+        AddTransactionRoutingModule,
+        MaterialModule,
+        ReactiveFormsModule,
+    ],
+    exports: [
+        AddTransactionModalComponent
+    ]
 })
 export class AddTransactionModule {}

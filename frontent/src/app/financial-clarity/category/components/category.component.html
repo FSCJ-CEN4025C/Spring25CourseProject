@@ -1,15 +1,65 @@
-<div *ngIf="errorMessage" class="error-message">
-    {{ errorMessage }}
-</div>
+<div class="category-page-container">
+    <!-- Header -->
+    <div class="category-summary">
+        <div class="totals">
+            <h3>Total Income: ${{ totalIncome }}</h3>
+            <h3>Total Expenses: ${{ totalExpenses }}</h3>
+        </div>
+        <button mat-raised-button color="primary" (click)="openNewCategoryModal()">
+            <mat-icon>add</mat-icon> Add New Category
+        </button>
+    </div>
 
-<ul>
-    <li *ngFor="let category of categories$ | async" (click)="selectCategory(category)">
-        {{ category.name }}
-    </li>
-</ul>
+    <!-- Add Category Button -->
+    <button mat-raised-button color="primary" (click)="showAddCategoryForm = !showAddCategoryForm">
+        <mat-icon>add</mat-icon> New Category
+    </button>
 
-<div *ngIf="selectedCategory">
-    <h3>{{ selectedCategory.name }}</h3>
-    <p>ID: {{ selectedCategory.id }}</p>
-    <p>Other details...</p>
+    <!-- Inline New Category Form -->
+    <div *ngIf="showAddCategoryForm" class="new-category-form">
+        <form [formGroup]="categoryForm">
+
+            <!-- Category Name -->
+            <mat-form-field appearance="outline">
+                <mat-label>Category Name</mat-label>
+                <input matInput formControlName="name" />
+                <mat-error *ngIf="categoryForm.controls['name'].hasError('required')">
+                    Category name is required.
+                </mat-error>
+            </mat-form-field>
+
+            <!-- Category Type -->
+            <mat-form-field appearance="outline">
+                <mat-label>Type</mat-label>
+                <mat-select formControlName="type">
+                    <mat-option [value]="categoryTypeEnum.INCOME">Income</mat-option>
+                    <mat-option [value]="categoryTypeEnum.EXPENSE">Expense</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <button mat-button (click)="createCategory()">Create</button>
+        </form>
+    </div>
+
+    <!-- Category Cards -->
+    <div class="category-card-container">
+        <mat-card
+                class="category-card"
+                *ngFor="let category of categories"
+                (click)="openTransactionModal(category)"
+        >
+            <mat-card-title>{{ category.name }}</mat-card-title>
+            <mat-card-subtitle>
+                {{ category.type | titlecase }} - ${{ category.totalAmount || 0 }}
+            </mat-card-subtitle>
+        </mat-card>
+    </div>
+
+    <!-- Transaction Modal -->
+    <app-add-transaction-modal
+            *ngIf="showTransactionModal"
+            [selectedCategory]="selectedCategory"
+            (closeModalEvent)="closeTransactionModal()"
+            (onModalSave)="refreshTotals()"
+    ></app-add-transaction-modal>
 </div>
