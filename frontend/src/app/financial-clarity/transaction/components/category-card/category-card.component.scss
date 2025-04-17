@@ -1,0 +1,83 @@
+$primary-color: #f5b7b1;
+$text-color: #16a085;
+$income-color: $text-color; // Using the green text color for income
+$expense-color: $primary-color; // Using the pink primary color for expense
+
+.category-card {
+  display: flex;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  width: 500px;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  &.income .card-indicator {
+    background-color: $income-color;
+  }
+
+  &.expense .card-indicator {
+    background-color: $expense-color;
+  }
+}
+
+.card-indicator {
+  width: 6px;
+  background-color: $primary-color;
+}
+
+.card-content {
+  flex: 1;
+  padding: 1rem;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.category-name {
+  margin: 0;
+
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.category-type {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+
+  //   .income & {
+  //     background-color: rgba($income-color, 0.1);
+  //     color: $income-color;
+  //   }
+
+  //   .expense & {
+  //     background-color: rgba($expense-color, 0.1);
+  //     color: $expense-color;
+  //   }
+}
+
+.card-amount {
+  font-size: 1.3rem;
+  font-weight: 600;
+
+  .income-amount {
+    color: $income-color;
+  }
+
+  .expense-amount {
+    color: $expense-color;
+  }
+}

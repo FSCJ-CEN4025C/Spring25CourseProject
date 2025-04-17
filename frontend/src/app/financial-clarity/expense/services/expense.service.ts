@@ -21,16 +21,28 @@ export class ExpenseService {
       );
   }
 
-  getExpenses(): Observable<Expense[]> {
-    return this.http.get<Expense[]>(`${environment.apiURL}/expenses`).pipe(
-      tap((data: Expense[]) => data),
-      catchError((err) => throwError(() => err))
-    );
+  getExpenses(categoryId?: number): Observable<Expense[]> {
+    var path = "";
+    if (categoryId) {
+      path = `/category/${categoryId}`;
+    }
+
+    return this.http
+      .get<Expense[]>(`${environment.apiURL}/expenses${path}`)
+      .pipe(
+        tap((data: Expense[]) => data),
+        catchError((err) => throwError(() => err))
+      );
   }
 
-  getTotalExpense(): Observable<number> {
+  getTotalExpense(categoryId?: number): Observable<number> {
+    var path = "";
+    if (categoryId) {
+      path = `/${categoryId}`;
+    }
+
     return this.http
-      .get<number>(`${environment.apiURL}/expenses/totalExpense`)
+      .get<number>(`${environment.apiURL}/expenses/totalExpense${path}`)
       .pipe(
         tap((data: number) => data),
         catchError((err) => throwError(() => err))

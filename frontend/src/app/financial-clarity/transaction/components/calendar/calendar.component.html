@@ -1,0 +1,10 @@
+<div class="calendar-section">
+  <mat-card class="calendar-container">
+    <mat-calendar
+      [(selected)]="selectedDate"
+      [dateClass]="dateClass"
+      (selectedChange)="onDateSelected($event)"
+    >
+    </mat-calendar>
+  </mat-card>
+</div>

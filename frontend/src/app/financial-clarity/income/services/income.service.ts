@@ -19,16 +19,26 @@ export class IncomeService {
     );
   }
 
-  getIncomes(): Observable<Income[]> {
-    return this.http.get<Income[]>(`${environment.apiURL}/income`).pipe(
+  getIncomes(categoryId?: number): Observable<Income[]> {
+    var path = "";
+    if (categoryId) {
+      path = `/category/${categoryId}`;
+    }
+
+    return this.http.get<Income[]>(`${environment.apiURL}/income${path}`).pipe(
       tap((data: Income[]) => data),
       catchError((err) => throwError(() => err))
     );
   }
 
-  getTotalIncome(): Observable<Income[]> {
+  getTotalIncome(categoryId?: number): Observable<Income[]> {
+    var path = "";
+    if (categoryId) {
+      path = `/${categoryId}`;
+    }
+
     return this.http
-      .get<Income[]>(`${environment.apiURL}/income/totalIncome`)
+      .get<Income[]>(`${environment.apiURL}/income/totalIncome${path}`)
       .pipe(
         tap((data: Income[]) => data),
         catchError((err) => throwError(() => err))

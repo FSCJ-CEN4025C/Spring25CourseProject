@@ -35,12 +35,20 @@ const routes: Routes = [
   },
 
   //categories
-
   {
     path: "home",
     loadChildren: () =>
       import("./financial-clarity/category/category.module").then(
         (m) => m.CategoryModule
+      ),
+    canActivate: [AuthGuard],
+  },
+
+  {
+    path: "transactions",
+    loadChildren: () =>
+      import("./financial-clarity/transaction/transaction.module").then(
+        (m) => m.TransactionModule
       ),
     canActivate: [AuthGuard],
   },

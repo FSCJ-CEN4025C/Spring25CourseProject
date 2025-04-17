@@ -1,0 +1,33 @@
+<mat-card
+  class="category-card"
+  (click)="cardClick(category)"
+  [ngClass]="{
+    income: category.type === 'INCOME',
+    expense: category.type === 'EXPENSE'
+  }"
+>
+  <div class="card-indicator"></div>
+  <div class="card-content">
+    <div class="card-header">
+      <h3 class="category-name">{{ category.name }}</h3>
+      <span class="category-type">{{ category.type }}</span>
+    </div>
+    <div class="card-amount">
+      <span
+        [ngClass]="{
+          'income-amount': category.type === 'INCOME',
+          'expense-amount': category.type === 'EXPENSE'
+        }"
+      >
+        {{ category.type === "INCOME" ? "+" : "-" }} {{ amount }}
+      </span>
+    </div>
+  </div>
+</mat-card>
+
+<div *ngIf="isModalVisible">
+  <app-list-transactions-modal
+    [selectedCategory]="selectedCategory"
+    (closeModalEvent)="closeModal()"
+  ></app-list-transactions-modal>
+</div>
