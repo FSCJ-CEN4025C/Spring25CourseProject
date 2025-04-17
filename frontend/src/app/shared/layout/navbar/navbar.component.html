@@ -1,0 +1,35 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    <div class="navbar-brand">FINANCIAL CLARITY</div>
+
+    <ul class="navbar-menu">
+      <li class="navbar-item"><a href="/home" class="navbar-link">Home</a></li>
+      <li class="navbar-item">
+        <a href="/transactions" class="navbar-link">Transactions</a>
+      </li>
+      <li class="navbar-item">
+        <a href="/budgets" class="navbar-link">Budgets</a>
+      </li>
+      <li class="navbar-item">
+        <a href="/settings" class="navbar-link">Settings</a>
+      </li>
+
+      <!--
+      <li class="navbar-item">
+        <a href="/repayment-plan" class="navbar-link">Repayment Plan</a>
+      </li>
+      <li class="navbar-item">
+        <a href="/savings" class="navbar-link">Savings</a>
+      </li>
+      -->
+    </ul>
+
+    <div *ngIf="user$ | async as user" class="navbar-user">
+      Hi, {{ user.username }}
+    </div>
+
+    <button mat-button color="danger" (click)="logOut()" data-cy="logout">
+      <mat-icon>logout</mat-icon> logout
+    </button>
+  </div>
+</nav>
