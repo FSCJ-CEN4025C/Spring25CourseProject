@@ -82,7 +82,7 @@ public class UserService {
     }
 
     // Generate salt
-    private byte[] generateSalt() {
+    public byte[] generateSalt() {
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[SALT_LENGTH];
         random.nextBytes(salt);

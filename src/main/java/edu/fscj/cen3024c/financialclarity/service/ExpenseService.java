@@ -3,6 +3,7 @@ package edu.fscj.cen3024c.financialclarity.service;
 import edu.fscj.cen3024c.financialclarity.dto.ExpensesDTO;
 import edu.fscj.cen3024c.financialclarity.entity.Category;
 import edu.fscj.cen3024c.financialclarity.entity.Expenses;
+import edu.fscj.cen3024c.financialclarity.entity.Income;
 import edu.fscj.cen3024c.financialclarity.entity.User;
 
 import edu.fscj.cen3024c.financialclarity.repository.UserRepository;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ExpenseService {
@@ -32,6 +34,24 @@ public class ExpenseService {
         List<Expenses> expenses = expensesRepository.findAll();
         double totalExpense = expenses.stream().mapToDouble(Expenses::getAmount).sum();
         return totalExpense;
+    }
+
+
+    public double getTotalExpenseByCategoryId(Integer categoryId) {
+
+        List<Expenses> expenses = expensesRepository.findAll();
+        double totalExpense = expenses.stream()   
+            .filter(expense -> expense.getCategory().getId().equals(categoryId))
+            .mapToDouble(Expenses::getAmount)
+            .sum();
+        return totalExpense;
+    }
+
+    public List<Expenses> findAllByCategoryId(Integer categoryId) {
+        return expensesRepository.findAll()
+            .stream()
+            .filter(expense -> expense.getCategory().getId().equals(categoryId))
+            .collect(Collectors.toList());
     }
 
 

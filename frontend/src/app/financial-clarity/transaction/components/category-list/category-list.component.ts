@@ -20,6 +20,8 @@ export class CategoryListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log("cateoagaoseiroasdf \n\n\n");
+    console.log(this.categories$);
     this.categories$.subscribe((categories) => {
       categories.forEach((category: Category) => {
         if (category.type === "INCOME") {

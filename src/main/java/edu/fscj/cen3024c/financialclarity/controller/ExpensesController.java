@@ -42,9 +42,23 @@ public class ExpensesController {
         return expenses.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
+    
+    @GetMapping("/category/{categoryId}") 
+    public List<ExpensesDTO> getAllExpensesByCategoryId(@PathVariable int categoryId) {
+        List<Expenses> expenses = expenseService.findAllByCategoryId(categoryId);
+        return expenses.stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
     @GetMapping("/totalExpense")
     public ResponseEntity<Double> getTotalExpense() {
         double totalExpense = expenseService.getTotalExpense();
+        return ResponseEntity.ok(totalExpense);
+    }
+
+    
+    @GetMapping("/totalExpense/{categoryId}")
+    public ResponseEntity<Double> getTotalExpense(@PathVariable int categoryId) {
+        double totalExpense = expenseService.getTotalExpenseByCategoryId(categoryId);
         return ResponseEntity.ok(totalExpense);
     }
 

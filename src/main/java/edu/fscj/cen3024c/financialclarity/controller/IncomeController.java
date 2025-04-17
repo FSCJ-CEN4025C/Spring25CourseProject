@@ -1,6 +1,8 @@
 package edu.fscj.cen3024c.financialclarity.controller;
 
+import edu.fscj.cen3024c.financialclarity.dto.ExpensesDTO;
 import edu.fscj.cen3024c.financialclarity.dto.IncomeDTO;
+import edu.fscj.cen3024c.financialclarity.entity.Expenses;
 import edu.fscj.cen3024c.financialclarity.entity.Income;
 import edu.fscj.cen3024c.financialclarity.entity.User;
 import edu.fscj.cen3024c.financialclarity.jwt.models.UserPrincipal;
@@ -15,7 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,12 +41,35 @@ public class IncomeController {
         return income.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
+    @GetMapping("/category/{categoryId}") 
+    public List<IncomeDTO> getAllIncomesByCategoryId(@PathVariable int categoryId) {
+        List<Income> income = incomeService.findAllByCategoryId(categoryId);
+        return income.stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
+    
+    @GetMapping("/category/{categoryId}/date/{date}") 
+    public List<IncomeDTO> getAllIncomesByCategoryId(@PathVariable int categoryId, @PathVariable LocalDate date) {
+        List<Income> income = incomeService.findByCategoryIdAndDate(categoryId, date);
+        return income.stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
+
+    
+
   
     @GetMapping("/totalIncome")
     public ResponseEntity<Double> getTotalIncome() {
         double totalIncome = incomeService.getTotalIncome();
         return ResponseEntity.ok(totalIncome);
     }
+
+    @GetMapping("/totalIncome/{categoryId}")
+    public ResponseEntity<Double> getTotalIncomeForCategory(@PathVariable int categoryId) {
+        double totalIncome = incomeService.getTotalIncomeByCategoryId(categoryId);
+        return ResponseEntity.ok(totalIncome);
+    }
+
 
 
     @CrossOrigin(origins = {"http://example.com", "http://localhost"})

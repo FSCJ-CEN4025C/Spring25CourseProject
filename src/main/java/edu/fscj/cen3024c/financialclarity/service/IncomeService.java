@@ -12,8 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class IncomeService {
@@ -30,6 +31,31 @@ public class IncomeService {
         List<Income> Incomes = incomeRepository.findAll();
         double totalIncome = Incomes.stream().mapToDouble(Income::getAmount).sum();   
         return totalIncome;
+    }
+
+    public double getTotalIncomeByCategoryId(Integer categoryId) {
+        List<Income> incomes = incomeRepository.findAll();
+
+        double totalIncome = incomes.stream()
+            .filter(income -> income.getCategory().getId().equals(categoryId)) // or income.getCategoryId().equals(...)
+            .mapToDouble(Income::getAmount)
+            .sum();
+
+        return totalIncome;
+    }
+
+    public List<Income> findByCategoryIdAndDate(Integer categoryId, LocalDate date) {
+        return incomeRepository.findAll().stream()
+            .filter(income -> income.getCategory().getId().equals(categoryId))
+            .filter(income -> income.getCreatedAt() != null && income.getCreatedAt().toLocalDate().equals(date))
+            .collect(Collectors.toList());
+    }
+
+    public List<Income> findAllByCategoryId(Integer categoryId) {
+        return incomeRepository.findAll()
+            .stream()
+            .filter(income -> income.getCategory().getId().equals(categoryId))
+            .collect(Collectors.toList());
     }
 
     public List<Income> findAll() { return incomeRepository.findAll(); }
