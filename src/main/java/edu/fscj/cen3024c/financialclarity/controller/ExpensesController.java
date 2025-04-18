@@ -2,8 +2,10 @@ package edu.fscj.cen3024c.financialclarity.controller;
 
 
 import edu.fscj.cen3024c.financialclarity.dto.ExpensesDTO;
+import edu.fscj.cen3024c.financialclarity.dto.IncomeDTO;
 import edu.fscj.cen3024c.financialclarity.dto.UserDTO;
 import edu.fscj.cen3024c.financialclarity.entity.Expenses;
+import edu.fscj.cen3024c.financialclarity.entity.Income;
 import edu.fscj.cen3024c.financialclarity.entity.User;
 import edu.fscj.cen3024c.financialclarity.jwt.models.UserPrincipal;
 import edu.fscj.cen3024c.financialclarity.repository.UserRepository;
@@ -17,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,6 +45,25 @@ public class ExpensesController {
         return expenses.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
+    
+    @GetMapping("/category/{categoryId}") 
+    public List<ExpensesDTO> getAllExpensesByCategoryId(@PathVariable int categoryId) {
+        List<Expenses> expenses = expenseService.findAllByCategoryId(categoryId);
+        return expenses.stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
+    @GetMapping("/category/{categoryId}/date/{date}") 
+    public List<ExpensesDTO> getAllExpensesByCategoryIdAndDate(@PathVariable int categoryId, @PathVariable LocalDate date) {
+        List<Expenses> expenses = expenseService.findByCategoryIdAndDate(categoryId, date);
+        return expenses.stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
+    @GetMapping("/totalExpense/category/{categoryId}/date/{date}") 
+    public  ResponseEntity<Double> getTotalExpenseByCategoryIdAndDate(@PathVariable int categoryId, @PathVariable LocalDate date) {
+        double totalExpense = expenseService.getTotalExpenseByCategoryIdAndDate(categoryId, date);
+        return ResponseEntity.ok(totalExpense);
+    }
+
     @GetMapping("/totalExpense")
     public ResponseEntity<Double> getTotalExpense() {
         double totalExpense = expenseService.getTotalExpense();
@@ -49,9 +71,23 @@ public class ExpensesController {
     }
 
 
+    @GetMapping("/totalExpense/date/{date}")
+    public ResponseEntity<Double> getTotalExpenseByDate(@PathVariable LocalDate date) {
+        double totalExpense = expenseService.getTotalExpenseByDate(date);
+        return ResponseEntity.ok(totalExpense);
+    }
+
+    
+    @GetMapping("/totalExpense/category/{categoryId}")
+    public ResponseEntity<Double> getTotalExpenseForCategory(@PathVariable int categoryId) {
+        double totalExpense = expenseService.getTotalExpenseByCategoryId(categoryId);
+        return ResponseEntity.ok(totalExpense);
+    }
+
+
     @CrossOrigin(origins = {"http://example.com", "http://localhost"})
     @GetMapping("/{expensesId}")
-    public ResponseEntity<Expenses> getIncome(@PathVariable Integer expensesId) {
+    public ResponseEntity<Expenses> get(@PathVariable Integer expensesId) {
         Expenses expenses = expenseService.findByExpencesId(expensesId);
         return ResponseEntity.ok(expenses);
     }

@@ -1,1 +1,4 @@
-<p>settings works!</p>
+<h1>settings</h1>
+<div *ngIf="user$ | async as user" class="navbar-user">
+  username: {{ user.username }}
+</div>

@@ -1,0 +1,74 @@
+$primary-color: #f5b7b1;
+$text-color: #16a085;
+
+.categories-container {
+  width: 100%;
+  padding: 1rem;
+  min-width: 300px; /* Ensure a minimum width */
+}
+
+.categories-title {
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
+// New styles for the header section
+.categories-header {
+  margin-bottom: 1.5rem;
+
+  .totals-container {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+
+    .total-item {
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-weight: 500;
+
+      &.income {
+        color: $primary-color;
+      }
+
+      &.expense {
+        color: $text-color;
+      }
+    }
+  }
+
+  button {
+    margin-bottom: 1rem;
+    padding: 0.5rem 1.25rem;
+    font-weight: 500;
+  }
+}
+
+.categories-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Ensure full width */
+
+  // For medium screens, show 2 cards per row
+  @media (min-width: 768px) and (max-width: 991px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+
+    app-category-card {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.no-categories {
+  padding: 2rem;
+  text-align: center;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  color: #666;
+
+  p {
+    margin: 0;
+  }
+}

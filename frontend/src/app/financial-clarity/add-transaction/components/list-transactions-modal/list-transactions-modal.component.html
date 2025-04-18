@@ -1,0 +1,31 @@
+<div class="modal-overlay">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h2 *ngIf="selectedCategory">
+        Transactions for: {{ selectedCategory.name }} ({{
+          selectedCategory.type
+        }})
+      </h2>
+
+      <button class="close-button" (click)="close()" mat-icon-button>
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div *ngIf="transactions && transactions.length > 0; else noTransactions">
+        <ul>
+          <li *ngFor="let transaction of transactions" class="transaction-item">
+            <span class="transaction-name">{{ transaction.name }}</span>
+            <span> : </span>
+            <span class="transaction-amount">{{ transaction.amount }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <ng-template #noTransactions>
+        <p>No transactions available.</p>
+      </ng-template>
+    </div>
+  </div>
+</div>

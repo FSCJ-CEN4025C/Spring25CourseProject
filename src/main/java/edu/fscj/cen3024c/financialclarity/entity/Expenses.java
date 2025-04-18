@@ -20,10 +20,10 @@ public class Expenses {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private Float amount;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String name;
 
     @Column()
@@ -49,6 +49,7 @@ public class Expenses {
     public void setName(String name) {this.name = name;}
 
     public LocalDateTime getCreatedAt() {return createdAt;}
+    public void setCreatedAt(LocalDateTime date) {this.createdAt = date;}
 
     public LocalDateTime getUpdatedAt() {return updatedAt;}
 
@@ -56,7 +57,11 @@ public class Expenses {
     // This annotation runs the function right before an new item is inserted into the database
     @PrePersist
     void prePersist() {
-      this.createdAt = this.updatedAt = LocalDateTime.now();
+      if (this.createdAt == null) {
+        this.createdAt = LocalDateTime.now();
+      }
+      this.updatedAt = LocalDateTime.now();
+
     }
     
     // This annotation runs the funciton right before an item is updated in the datebase

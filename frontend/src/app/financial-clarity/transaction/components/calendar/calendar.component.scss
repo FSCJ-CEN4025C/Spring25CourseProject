@@ -1,0 +1,63 @@
+$primary-color: #f5b7b1;
+$text-color: #16a085;
+
+.calendar-section {
+  width: 100%;
+}
+
+.calendar-container {
+  width: 100%;
+  padding: 1rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+}
+
+::ng-deep .mat-calendar {
+  background-color: #ffffff;
+  border-radius: 12px;
+  width: 100%;
+}
+
+.highlight-today > .mat-calendar-body-cell-content {
+  background-color: $primary-color;
+  color: white;
+  border-radius: 50%;
+}
+
+// Additional styling for Angular Material components
+::ng-deep .mat-calendar-body-selected {
+  background-color: $primary-color !important;
+  color: white !important;
+}
+
+::ng-deep .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+  border-color: $primary-color !important;
+}
+
+::ng-deep .mat-calendar-arrow {
+  border-top-color: $text-color !important;
+}
+
+::ng-deep .mat-calendar-table-header,
+::ng-deep .mat-calendar-body-label {
+  color: $text-color !important;
+}
+
+// Event date styling
+::ng-deep .event-date > .mat-calendar-body-cell-content {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    background-color: $primary-color;
+    border-radius: 50%;
+  }
+}
