@@ -1,10 +1,21 @@
 <div class="categories-container">
   <h2 class="categories-title">Categories</h2>
+  <div class="categories-header">
+    <div class="totals-container">
+      <div class="total-item income">Total Income: {{ totalIncome }}</div>
+      <div class="total-item expense">Total Expenses: {{ totalExpense }}</div>
+    </div>
+
+    <button mat-raised-button color="primary" (click)="onAllTimeTransactions()">
+      All Time
+    </button>
+  </div>
 
   <div class="categories-list">
     <!-- Loop through each category and create a category card -->
     <app-category-card
       *ngFor="let category of categories; let i = index"
+      [selectedDate]="selectedDate"
       [category]="category.category"
       [amount]="category.amount"
     >

@@ -19,10 +19,15 @@ export class IncomeService {
     );
   }
 
-  getIncomes(categoryId?: number): Observable<Income[]> {
+  getIncomes(categoryId?: number, date?: Date | null): Observable<Income[]> {
     var path = "";
     if (categoryId) {
       path = `/category/${categoryId}`;
+
+      if (date) {
+        const formattedDate = date.toISOString().split("T")[0]; // YYYY-MM-DD
+        path += `/date/${formattedDate}`;
+      }
     }
 
     return this.http.get<Income[]>(`${environment.apiURL}/income${path}`).pipe(
@@ -31,10 +36,18 @@ export class IncomeService {
     );
   }
 
-  getTotalIncome(categoryId?: number): Observable<Income[]> {
+  getTotalIncome(
+    categoryId?: number,
+    date?: Date | null
+  ): Observable<Income[]> {
     var path = "";
     if (categoryId) {
-      path = `/${categoryId}`;
+      path = `/category/${categoryId}`;
+
+      if (date) {
+        const formattedDate = date.toISOString().split("T")[0]; // YYYY-MM-DD
+        path += `/date/${formattedDate}`;
+      }
     }
 
     return this.http
@@ -44,11 +57,19 @@ export class IncomeService {
         catchError((err) => throwError(() => err))
       );
   }
+
+  getTotalIncomeByDate(date?: Date | null) {
+    var path = "";
+    if (date) {
+      const formattedDate = date.toISOString().split("T")[0]; // YYYY-MM-DD
+      path += `/date/${formattedDate}`;
+    }
+
+    return this.http
+      .get<number>(`${environment.apiURL}/income/totalIncome${path}`)
+      .pipe(
+        tap((data: number) => data),
+        catchError((err) => throwError(() => err))
+      );
+  }
 }
-
-// {
-
-//   "categoryId": 1,
-//   "amount": 0,
-//   "name": "test123"
-// }

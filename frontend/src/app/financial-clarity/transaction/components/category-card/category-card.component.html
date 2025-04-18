@@ -27,6 +27,7 @@
 
 <div *ngIf="isModalVisible">
   <app-list-transactions-modal
+    [selectedDate]="selectedDate"
     [selectedCategory]="selectedCategory"
     (closeModalEvent)="closeModal()"
   ></app-list-transactions-modal>

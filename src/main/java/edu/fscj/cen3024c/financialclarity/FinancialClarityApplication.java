@@ -26,6 +26,7 @@ import edu.fscj.cen3024c.financialclarity.entity.CategoryType;
 import edu.fscj.cen3024c.financialclarity.entity.Period;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -121,20 +122,45 @@ public class FinancialClarityApplication implements CommandLineRunner {
 		income1.setAmount(1200.00f);
 		incomeRepository.save(income1);
 
+		Income income2 = new Income();
+		income2.setCategory(category2);
+		income2.setUser(user1);
+		income2.setName("Paycheck 2");
+		income2.setAmount(250.00f);
+		income2.setCreatedAt( LocalDateTime.now().minusDays(1));
+		incomeRepository.save(income2);
+
+		Income income3 = new Income();
+		income3.setCategory(category2);
+		income3.setUser(user1);
+		income3.setName("Paycheck 3");
+		income3.setAmount(250.00f);
+		income3.setCreatedAt( LocalDateTime.now());
+		incomeRepository.save(income3);
+
 		// Create Expenses
 		Expenses expense1 = new Expenses();
 		expense1.setCategory(category1);
 		expense1.setUser(user1);
-		expense1.setName("Netflix_test");
+		expense1.setName("Rent payment 1");
 		expense1.setAmount(500f);
+		expense1.setCreatedAt( LocalDateTime.now().minusDays(1));
 		expensesRepository.save(expense1);
 
+		Expenses expense4 = new Expenses();
+		expense4.setCategory(category1);
+		expense4.setUser(user1);
+		expense4.setName("Rent payment 1");
+		expense4.setAmount(500f);
+		expense4.setCreatedAt( LocalDateTime.now());
+		expensesRepository.save(expense4);
 
 		Expenses expense2 = new Expenses();
 		expense2.setCategory(category4);
 		expense2.setUser(user1);
 		expense2.setName("Tacos 1");
 		expense2.setAmount(405.0f);
+		expense2.setCreatedAt( LocalDateTime.now().minusDays(1));
 		expensesRepository.save(expense2);
 
 		Expenses expense3 = new Expenses();
@@ -142,42 +168,9 @@ public class FinancialClarityApplication implements CommandLineRunner {
 		expense3.setUser(user1);
 		expense3.setName("Tacos 2");
 		expense3.setAmount(100.0f);
+		expense3.setCreatedAt( LocalDateTime.now());
 		expensesRepository.save(expense3);
 
-		// // Create RepaymentPlan
-		// RepaymentPlan repaymentPlan = new RepaymentPlan();
-		// repaymentPlan.setUser(user1);
-		// repaymentPlan.setPlanName("Auto Loan Payment");
-		// repaymentPlan.setTotalExpense(19999.99f);
-		// repaymentPlan.setPayment(450.00f);
-		// repaymentPlan.setTimeLine("40 months");
-		// repaymentPlan.setCategory("Auto");
-
-
-		// // Print all Users
-		// List<User> users = usersRepository.findAll();
-		// System.out.println("All users in the database:");
-		// users.forEach(user -> System.out.println(user.getUsername()));
-
-		// // Print all Budgets
-		// List<Budget> budgets = budgetRepository.findAll();
-		// System.out.println("All Budgets in the database:");
-		// budgets.forEach(b -> System.out.println(b.getBudgetName()));
-
-		// // Print all expenses
-		// List<Expenses> expenses = expensesRepository.findAll();
-		// System.out.println("All expenses in the database:");
-		// expenses.forEach(expense -> System.out.println(expense.getName() + " " + expense.getAmount()));
-
-		// // Print all Income
-		// List<Income> incomes = incomeRepository.findAll();
-		// System.out.println("All incomes in the database:");
-		// incomes.forEach(income -> System.out.println(income.getName() + " " + income.getAmount()));
-
-		// // Print all Repayment plan
-		// List<RepaymentPlan> repaymentPlans = repaymentPlanRepository.findAll();
-		// System.out.println("All repayment plan in the database:");
-		// repaymentPlans.forEach(income -> System.out.println(repaymentPlan.getPlanName() + " " + repaymentPlan.getTotalExpense()));
 
 	}
 }

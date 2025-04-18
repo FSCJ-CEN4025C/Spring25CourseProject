@@ -17,6 +17,7 @@
         <ul>
           <li *ngFor="let transaction of transactions" class="transaction-item">
             <span class="transaction-name">{{ transaction.name }}</span>
+            <span> : </span>
             <span class="transaction-amount">{{ transaction.amount }}</span>
           </li>
         </ul>

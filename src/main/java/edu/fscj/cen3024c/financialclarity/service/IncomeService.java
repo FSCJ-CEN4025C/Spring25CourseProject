@@ -33,11 +33,34 @@ public class IncomeService {
         return totalIncome;
     }
 
+    public double getTotalIncomeByDate(LocalDate date) {
+        List<Income> incomes = incomeRepository.findAll();
+
+        double totalIncome = incomes.stream()
+            .filter(income -> income.getCreatedAt() != null && income.getCreatedAt().toLocalDate().equals(date))
+            .mapToDouble(Income::getAmount)
+            .sum();
+
+        return totalIncome;
+    }
+
     public double getTotalIncomeByCategoryId(Integer categoryId) {
         List<Income> incomes = incomeRepository.findAll();
 
         double totalIncome = incomes.stream()
-            .filter(income -> income.getCategory().getId().equals(categoryId)) // or income.getCategoryId().equals(...)
+            .filter(income -> income.getCategory().getId().equals(categoryId))
+            .mapToDouble(Income::getAmount)
+            .sum();
+
+        return totalIncome;
+    }
+
+    public double getTotalIncomeByCategoryIdAndDate(Integer categoryId, LocalDate date) {
+        List<Income> incomes = incomeRepository.findAll();
+
+        double totalIncome = incomes.stream()
+            .filter(income -> income.getCategory().getId().equals(categoryId)) 
+            .filter(income -> income.getCreatedAt() != null && income.getCreatedAt().toLocalDate().equals(date))
             .mapToDouble(Income::getAmount)
             .sum();
 

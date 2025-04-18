@@ -7,6 +7,7 @@ import { Category } from "src/app/financial-clarity/category/models/category.int
   styleUrls: ["./category-card.component.scss"],
 })
 export class CategoryCardComponent implements OnInit {
+  @Input() selectedDate: Date | null = null;
   @Input() category!: Category;
   @Input() amount!: number;
 

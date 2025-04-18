@@ -10,7 +10,13 @@ import { Income } from "src/app/financial-clarity/income/models/income.interface
   styleUrls: ["./transaction.component.scss"],
 })
 export class TransactionComponent implements OnInit {
+  selectedDate: Date | null = null;
+
   constructor() {}
 
   ngOnInit(): void {}
+
+  onDateClicked(date: Date | null) {
+    this.selectedDate = date;
+  }
 }

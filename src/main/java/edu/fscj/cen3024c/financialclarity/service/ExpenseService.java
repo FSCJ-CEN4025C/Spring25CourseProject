@@ -14,7 +14,7 @@ import edu.fscj.cen3024c.financialclarity.repository.ExpensesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,6 +36,17 @@ public class ExpenseService {
         return totalExpense;
     }
 
+    public double getTotalExpenseByDate(LocalDate date) {
+        List<Expenses> expenses = expensesRepository.findAll();
+
+        double totalExpense = expenses.stream()
+            .filter(expense -> expense.getCreatedAt() != null && expense.getCreatedAt().toLocalDate().equals(date))
+            .mapToDouble(Expenses::getAmount)
+            .sum();
+
+        return totalExpense;
+    }
+
 
     public double getTotalExpenseByCategoryId(Integer categoryId) {
 
@@ -47,13 +58,31 @@ public class ExpenseService {
         return totalExpense;
     }
 
+    public double getTotalExpenseByCategoryIdAndDate(Integer categoryId, LocalDate date) {
+        List<Expenses> expenses = expensesRepository.findAll();
+
+        double totalExpense = expenses.stream()
+            .filter(expense -> expense.getCategory().getId().equals(categoryId)) 
+            .filter(expense -> expense.getCreatedAt() != null && expense.getCreatedAt().toLocalDate().equals(date))
+            .mapToDouble(Expenses::getAmount)
+            .sum();
+
+        return totalExpense;
+    }
+
+    public List<Expenses> findByCategoryIdAndDate(Integer categoryId, LocalDate date) {
+        return expensesRepository.findAll().stream()
+            .filter(expense -> expense.getCategory().getId().equals(categoryId))
+            .filter(expense -> expense.getCreatedAt() != null && expense.getCreatedAt().toLocalDate().equals(date))
+            .collect(Collectors.toList());
+    }
+
     public List<Expenses> findAllByCategoryId(Integer categoryId) {
         return expensesRepository.findAll()
             .stream()
             .filter(expense -> expense.getCategory().getId().equals(categoryId))
             .collect(Collectors.toList());
     }
-
 
     public Expenses findByExpencesId(Integer expensesId) {return expensesRepository.findByExpenseId(expensesId);}
     public List<Expenses> findAll() {return expensesRepository.findAll();}

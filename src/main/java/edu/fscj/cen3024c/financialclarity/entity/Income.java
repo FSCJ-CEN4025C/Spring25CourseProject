@@ -1,6 +1,8 @@
 package edu.fscj.cen3024c.financialclarity.entity;
 
-import java.time.LocalDateTime; 
+import java.time.LocalDateTime;
+
+import org.springframework.cglib.core.Local;
 
 import jakarta.persistence.*;
 
@@ -49,7 +51,9 @@ public class Income {
     public void setName(String name) {this.name = name;}
 
 
+
     public LocalDateTime getCreatedAt() {return createdAt;}
+    public void setCreatedAt(LocalDateTime date) {this.createdAt = date;}
 
     public LocalDateTime getUpdatedAt() {return updatedAt;}
 
@@ -57,7 +61,10 @@ public class Income {
     // This annotation runs the function right before an new item is inserted into the database
     @PrePersist
     void prePersist() {
-      this.createdAt = this.updatedAt = LocalDateTime.now();
+      if (this.createdAt == null) {
+        this.createdAt = LocalDateTime.now();
+      }
+      this.updatedAt = LocalDateTime.now();
     }
   
     // This annotation runs the funciton right before an item is updated in the datebase

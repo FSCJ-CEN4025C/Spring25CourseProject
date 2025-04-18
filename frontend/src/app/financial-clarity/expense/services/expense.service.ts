@@ -21,10 +21,15 @@ export class ExpenseService {
       );
   }
 
-  getExpenses(categoryId?: number): Observable<Expense[]> {
+  getExpenses(categoryId?: number, date?: Date | null): Observable<Expense[]> {
     var path = "";
     if (categoryId) {
       path = `/category/${categoryId}`;
+
+      if (date) {
+        const formattedDate = date.toISOString().split("T")[0]; // YYYY-MM-DD
+        path += `/date/${formattedDate}`;
+      }
     }
 
     return this.http
@@ -35,10 +40,29 @@ export class ExpenseService {
       );
   }
 
-  getTotalExpense(categoryId?: number): Observable<number> {
+  getTotalExpense(categoryId?: number, date?: Date | null): Observable<number> {
     var path = "";
     if (categoryId) {
-      path = `/${categoryId}`;
+      path = `/category/${categoryId}`;
+
+      if (date) {
+        const formattedDate = date.toISOString().split("T")[0]; // YYYY-MM-DD
+        path += `/date/${formattedDate}`;
+      }
+    }
+    return this.http
+      .get<number>(`${environment.apiURL}/expenses/totalExpense${path}`)
+      .pipe(
+        tap((data: number) => data),
+        catchError((err) => throwError(() => err))
+      );
+  }
+
+  getTotalExpenseByDate(date?: Date | null) {
+    var path = "";
+    if (date) {
+      const formattedDate = date.toISOString().split("T")[0]; // YYYY-MM-DD
+      path += `/date/${formattedDate}`;
     }
 
     return this.http

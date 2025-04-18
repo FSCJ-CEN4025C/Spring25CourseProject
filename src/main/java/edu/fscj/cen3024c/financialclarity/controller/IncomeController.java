@@ -49,22 +49,32 @@ public class IncomeController {
 
     
     @GetMapping("/category/{categoryId}/date/{date}") 
-    public List<IncomeDTO> getAllIncomesByCategoryId(@PathVariable int categoryId, @PathVariable LocalDate date) {
+    public List<IncomeDTO> getAllIncomesByCategoryIdAndDate(@PathVariable int categoryId, @PathVariable LocalDate date) {
         List<Income> income = incomeService.findByCategoryIdAndDate(categoryId, date);
         return income.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
 
-    
+    @GetMapping("/totalIncome/category/{categoryId}/date/{date}") 
+    public  ResponseEntity<Double> getTotalIncomeByCategoryIdAndDate(@PathVariable int categoryId, @PathVariable LocalDate date) {
+        double totalIncome = incomeService.getTotalIncomeByCategoryIdAndDate(categoryId, date);
+        return ResponseEntity.ok(totalIncome);
+    }
 
-  
+    
     @GetMapping("/totalIncome")
     public ResponseEntity<Double> getTotalIncome() {
         double totalIncome = incomeService.getTotalIncome();
         return ResponseEntity.ok(totalIncome);
     }
 
-    @GetMapping("/totalIncome/{categoryId}")
+    @GetMapping("/totalIncome/date/{date}")
+    public ResponseEntity<Double> getTotalIncomeByDate(@PathVariable LocalDate date) {
+        double totalIncome = incomeService.getTotalIncomeByDate(date);
+        return ResponseEntity.ok(totalIncome);
+    }
+
+    @GetMapping("/totalIncome/category/{categoryId}")
     public ResponseEntity<Double> getTotalIncomeForCategory(@PathVariable int categoryId) {
         double totalIncome = incomeService.getTotalIncomeByCategoryId(categoryId);
         return ResponseEntity.ok(totalIncome);

@@ -1,15 +1,37 @@
-import { Component, OnInit } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChange,
+  SimpleChanges,
+} from "@angular/core";
 import { Category } from "src/app/financial-clarity/category/models/category.interface";
 import { CategoryService } from "src/app/financial-clarity/category/services/category.service";
 import { ExpenseService } from "src/app/financial-clarity/expense/services/expense.service";
 import { IncomeService } from "src/app/financial-clarity/income/services/income.service";
+import { combineLatest, switchMap, map } from "rxjs";
 
 @Component({
   selector: "app-category-list",
   templateUrl: "./category-list.component.html",
   styleUrls: ["./category-list.component.scss"],
 })
-export class CategoryListComponent implements OnInit {
+export class CategoryListComponent implements OnInit, OnChanges {
+  @Input() selectedDate: Date | null = null;
+  @Output() onDateClicked = new EventEmitter<Date | null>();
+
+  totalIncome: number = 0;
+  totalExpense: number = 0;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes["selectedDate"]) {
+      this.getData();
+    }
+  }
+
   categories: { category: Category; amount: any }[] = [];
   categories$ = this.categoryService.getCategories();
 
@@ -19,44 +41,57 @@ export class CategoryListComponent implements OnInit {
     private expenseService: ExpenseService
   ) {}
 
+  onAllTimeTransactions() {
+    this.onDateClicked.emit(null);
+  }
+
   ngOnInit(): void {
-    console.log("cateoagaoseiroasdf \n\n\n");
-    console.log(this.categories$);
-    this.categories$.subscribe((categories) => {
-      categories.forEach((category: Category) => {
-        if (category.type === "INCOME") {
-          this.incomeService
-            .getTotalIncome(category.id)
-            .subscribe((totalIncome) => {
-              const item = {
-                category: category,
-                amount: totalIncome,
-              };
-              this.categories.push(item);
-            });
-        } else if (category.type === "EXPENSE") {
-          this.expenseService
-            .getTotalExpense(category.id)
-            .subscribe((totalExpense) => {
-              const item = {
-                category: category,
-                amount: totalExpense,
-              };
-              this.categories.push(item);
-            });
-        }
+    this.getData();
+  }
+
+  getData() {
+    this.getTotalExpenseAndIncomeForAllCategories();
+    this.getCategoriesAndTotalAmount();
+  }
+
+  getTotalExpenseAndIncomeForAllCategories() {
+    this.incomeService
+      .getTotalIncomeByDate(this.selectedDate)
+      .subscribe((totalIncome) => {
+        this.totalIncome = totalIncome;
       });
-    });
-    console.log(this.categories$);
+
+    this.expenseService
+      .getTotalExpenseByDate(this.selectedDate)
+      .subscribe((totalExpense) => {
+        this.totalExpense = totalExpense;
+      });
+  }
+
+  getCategoriesAndTotalAmount() {
+    this.categoryService
+      .getCategories()
+      .pipe(
+        switchMap((categories) => {
+          const categoryObservables = categories.map((category) => {
+            if (category.type === "INCOME") {
+              return this.incomeService
+                .getTotalIncome(category.id, this.selectedDate)
+                .pipe(map((amount) => ({ category, amount })));
+            } else if (category.type === "EXPENSE") {
+              return this.expenseService
+                .getTotalExpense(category.id, this.selectedDate)
+                .pipe(map((amount) => ({ category, amount })));
+            } else {
+              return [];
+            }
+          });
+
+          return combineLatest(categoryObservables);
+        })
+      )
+      .subscribe((categoryData) => {
+        this.categories = categoryData;
+      });
   }
 }
-// categories: any[] = [
-//   { name: "Groceries", type: "expense", amount: 200 },
-//   { name: "Rent", type: "expense", amount: 1200 },
-//   { name: "Salary", type: "income", amount: 3500 },
-//   { name: "Utilities", type: "expense", amount: 150 },
-//   { name: "Freelance", type: "income", amount: 800 },
-//   { name: "Dining Out", type: "expense", amount: 120 },
-//   { name: "Transportation", type: "expense", amount: 80 },
-//   { name: "Investments", type: "income", amount: 400 },
-// ];

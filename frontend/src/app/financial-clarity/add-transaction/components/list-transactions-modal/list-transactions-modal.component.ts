@@ -13,6 +13,7 @@ import { IncomeService } from "src/app/financial-clarity/income/services/income.
   styleUrls: ["./list-transactions-modal.component.scss"],
 })
 export class ListTransactionsModalComponent implements OnInit {
+  @Input() selectedDate: Date | null = null;
   @Input() selectedCategory: Category | null = null;
   @Output() closeModalEvent = new EventEmitter<void>();
 
@@ -24,20 +25,22 @@ export class ListTransactionsModalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log("\n\n\n modal categ");
-    console.log(this.selectedCategory);
     if (this.selectedCategory) {
       const id = this.selectedCategory.id;
       const type = this.selectedCategory.type;
 
       if (type == CategoryType.INCOME) {
-        this.incomeService.getIncomes(id).subscribe((incomes) => {
-          this.transactions = incomes;
-        });
+        this.incomeService
+          .getIncomes(id, this.selectedDate)
+          .subscribe((incomes) => {
+            this.transactions = incomes;
+          });
       } else if (type == CategoryType.EXPENSE) {
-        this.expenseService.getExpenses(id).subscribe((expenses) => {
-          this.transactions = expenses;
-        });
+        this.expenseService
+          .getExpenses(id, this.selectedDate)
+          .subscribe((expenses) => {
+            this.transactions = expenses;
+          });
       }
     }
   }

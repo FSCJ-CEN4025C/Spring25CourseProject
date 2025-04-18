@@ -1,5 +1,8 @@
 <div class="container">
-  <app-calendar> </app-calendar>
+  <app-calendar (onDateClicked)="onDateClicked($event)"> </app-calendar>
   <!-- <app-category-card></app-category-card> -->
-  <app-category-list></app-category-list>
+  <app-category-list
+    [selectedDate]="selectedDate"
+    (onDateClicked)="onDateClicked($event)"
+  ></app-category-list>
 </div>

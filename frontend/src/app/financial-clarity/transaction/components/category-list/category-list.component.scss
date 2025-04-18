@@ -8,10 +8,40 @@ $text-color: #16a085;
 }
 
 .categories-title {
-  color: $text-color;
   margin-bottom: 1.5rem;
   font-weight: 500;
   font-size: 1.5rem;
+}
+
+// New styles for the header section
+.categories-header {
+  margin-bottom: 1.5rem;
+
+  .totals-container {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+
+    .total-item {
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-weight: 500;
+
+      &.income {
+        color: $primary-color;
+      }
+
+      &.expense {
+        color: $text-color;
+      }
+    }
+  }
+
+  button {
+    margin-bottom: 1rem;
+    padding: 0.5rem 1.25rem;
+    font-weight: 500;
+  }
 }
 
 .categories-list {
